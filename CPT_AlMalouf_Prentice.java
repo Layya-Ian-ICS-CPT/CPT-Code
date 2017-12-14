@@ -9,6 +9,12 @@ public class CPT_AlMalouf_Prentice
 	c= new Console(150,150);
 	char startInput = '.';
 	makeTitleScreen (startInput);
+	if (startInput== ' ')
+	{
+	levelOne ();
+	}
+	
+	
     }
 
     public static char makeTitleScreen ( char input)
@@ -25,5 +31,8 @@ public class CPT_AlMalouf_Prentice
 	return input;
 
     }
-    public 
+    
+    public static int levelOne ()
+    {}
+    
 }
