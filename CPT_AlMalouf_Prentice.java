@@ -8,7 +8,11 @@ public class CPT_AlMalouf_Prentice
     {
 	c = new Console (190, 150);
 	char startInput = '.';
-	makeTitleScreen ();
+	if (makeTitleScreen ())
+	{
+	    
+	}
+	
     }
 
 
@@ -78,6 +82,11 @@ public class CPT_AlMalouf_Prentice
 	catch (InterruptedException e)
 	{
 	}
+    }
+    
+    public static void Cannon ()
+    {
+	
     }
 }
 
