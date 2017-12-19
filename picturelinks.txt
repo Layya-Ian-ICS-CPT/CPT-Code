@@ -1,0 +1,51 @@
+https://ibb.co/gvURn6
+https://ibb.co/jsBHum
+https://ibb.co/fY7qEm
+https://ibb.co/jQN1LR
+https://ibb.co/eAnqEm
+https://ibb.co/ev7CS6
+https://ibb.co/gsdxum
+https://ibb.co/f66T0R
+
+Diagonals
+Up Left
+https://image.ibb.co/duAo0R/Cannon_Up_Left.png
+Up Right
+https://image.ibb.co/nRvMLR/Cannon_Up_Right.png
+Down Right
+https://image.ibb.co/h6hOZm/Cannon_Down_Right.png
+Down Left
+https://image.ibb.co/gYJxum/Cannon_Down_Left.png
+
+Straight Directions
+Up
+https://image.ibb.co/gNiVEm/CannonUp.png
+Right
+https://image.ibb.co/dGm6n6/Cannon_Right.png
+Down
+https://image.ibb.co/jkFcum/Cannon_Down.png
+Left
+https://image.ibb.co/n7PFfR/Cannon_Left.png
+
+In Order
+https://image.ibb.co/gNiVEm/CannonUp.png
+https://image.ibb.co/nRvMLR/Cannon_Up_Right.png
+https://image.ibb.co/dGm6n6/Cannon_Right.png
+https://image.ibb.co/h6hOZm/Cannon_Down_Right.png
+https://image.ibb.co/jkFcum/Cannon_Down.png
+https://image.ibb.co/gYJxum/Cannon_Down_Left.png
+https://image.ibb.co/n7PFfR/Cannon_Left.png
+https://image.ibb.co/duAo0R/Cannon_Up_Left.png
+
+New Links in Order
+"http://i.imgur.com/OaSlqSR.png",
+"http://i.imgur.com/STgsftB.png",
+"http://i.imgur.com/n7ZOq7y.png",
+"http://i.imgur.com/eKW7Jfr.png",
+"http://i.imgur.com/ZjtQosM.png",
+"http://i.imgur.com/FSnI1Pn.png",
+"http://i.imgur.com/Vu7b24F.png",
+"http://i.imgur.com/Metb2lR.png"};
+
+max x = 1200
+max y = 800
