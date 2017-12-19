@@ -1,75 +1,104 @@
+import java.awt.event.*;
+import java.applet.*;
 import java.awt.*;
-import hsa.Console;
 
-public class CPT_AlMalouf_Prentice
+public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
-    static Console c, d;
-    public static void main (String[] args)
+
+    int keyCode = 0, menuSelect = 0;
+    Button menuStart, nextLevel, restart;
+    public void init ()
     {
-	c = new Console (190, 150);
-	char startInput = '.';
-	if (makeTitleScreen ())
-	{
-	    
-	}
-	
+	this.setLayout (null);
+	menuStart = new Button ("Press to begin");
+	menuStart.setBounds (470, 450, 250, 50);
+	nextLevel = new Button ("Next Level");
+	nextLevel.setBounds (500, 500, 100,40);
+	restart = new Button ("Restart");
+	restart.setBounds (590, 500, 100, 40);
+	add (menuStart);
+	add (nextLevel);
+	add (restart);
+	menuStart.addMouseListener (this);
+	nextLevel.addMouseListener (this);
+	restart.addMouseListener (this);
+	addKeyListener (this);
+	addMouseListener (this);
+	setFocusable (true);
     }
 
 
-    public static char makeTitleScreen ()
+    public void paint (Graphics g)
+    {
+	if (menuSelect == 0)
+	{
+	    remove (nextLevel);
+	    remove (restart);
+	    makeTitleScreen (g);
+	}
+	if (menuSelect == 1)
+	{
+	    remove (menuStart);
+	    levelOne (g);
+	}
+	if (menuSelect == 2)
+	{
+	    //levelTwo ();
+	}
+
+    }
+
+
+    public void makeTitleScreen (Graphics g)
     {
 	int[] pointx = {250, 300, 200, 130};
 	int[] pointy = {200, 230, 400, 330};
 	int x = 300, y = 150, dx = 1, dy = -1;
 	char input;
 
+	//this section contains the graphics that creates the cannon
+	g.setColor (new Color (171, 149, 132));
+	g.fillRect (0, 0, 1200, 800);
+	g.fillRect (0, 700, 1200, 800);
+	g.setColor (Color.black);
+	g.fillPolygon (pointx, pointy, 4);
+	g.fillOval (115, 315, 100, 100);
+	g.setColor (Color.yellow);
+	g.fillRect (130, 420, 100, 30);
+	g.fillRect (170, 360, 15, 80);
+
+	//this section contains all the draw string methods that print the game title and others
+	Font newFont = new Font ("verdana", Font.BOLD + Font.PLAIN, 100);
+	g.setFont (newFont);
+	g.setColor (Color.red);
+	g.drawString ("Cannon Launch", 240, 400);
+	Font newFont2 = new Font ("verdana", Font.BOLD + Font.ITALIC, 30);
+	g.setFont (newFont2);
+	g.setColor (Color.black);
+	g.drawString ("Layya Al Malouf & Ian Prentice", 50, 750);
+	g.drawString ("ICS 3U1", 50, 800);
+
 	while (true)
 	{
-	    //this section contains the graphics that creates the cannon
-	    c.setColor (new Color (171, 149, 132));
-	    c.fillRect (0, 0, c.maxx (), c.maxy ());
-	    c.fillRect (0, 700, c.maxx (), c.maxy ());
-	    c.setColor (Color.black);
-	    c.fillPolygon (pointx, pointy, 4);
-	    c.fillOval (115, 315, 100, 100);
-	    c.setColor (Color.yellow);
-	    c.fillRect (130, 420, 100, 30);
-	    c.fillRect (170, 360, 15, 80);
-
-	    //this section contains all the draw string methods that print the game title and others
-	    Font newFont = new Font ("Arial", Font.BOLD + Font.ITALIC, 100);
-	    c.setFont (newFont);
-	    c.setColor (Color.red);
-	    c.drawString ("Cannon Launch", 240, 400);
-	    Font newFont2 = new Font ("optima regular", Font.BOLD + Font.ITALIC, 30);
-	    c.setFont (newFont2);
-	    c.setColor (Color.black);
-	    c.drawString ("Layya Al Malouf & Ian Prentice", 50, 800);
-	    c.drawString ("Press enter to begin", 450, 450);
-	    c.print (" ");
-	    input = c.readChar ();
-
-	    for (int i = 0 ; i < 100000 ; i++)
-
-		{
-		    c.setColor (Color.white);
-		    c.fillOval (x, y, 50, 50);
-		    if (y < 25)
-		    {
-			c.setColor (new Color (171, 149, 132));
-			c.fillOval (x, y, 50, 50);
-			break;
-		    }
-		    delay (30);
-		    c.setColor (new Color (171, 149, 132));
-		    c.fillOval (x, y, 50, 50);
-		    x = x + 10;
-		    y = y - 5;
-
-		}
-	    return input;
-	    //yay
+	    g.setColor (Color.white);
+	    g.fillOval (x, y, 50, 50);
+	    if (y < 25)
+	    {
+		g.setColor (new Color (171, 149, 132));
+		g.fillOval (x, y, 50, 50);
+		break;
+	    }
+	    delay (30);
+	    g.setColor (new Color (171, 149, 132));
+	    g.fillOval (x, y, 50, 50);
+	    x = x + 10;
+	    y = y - 5;
 	}
+    }
+    
+    public void levelOne (Graphics g)
+    {
+    g.drawRect (100,100,100,100);
     }
 
 
@@ -84,11 +113,64 @@ public class CPT_AlMalouf_Prentice
 	{
 	}
     }
-    
-    public static void Cannon ()
+
+
+    public void keyTyped (KeyEvent k)
     {
-	
+	keyCode = k.getKeyCode ();
+	if (keyCode == 32)
+	{
+	    repaint ();
+	}
+    }
+
+
+    public void keyPressed (KeyEvent k)
+    {
+
+    }
+
+
+    public void keyReleased (KeyEvent k)
+    {
+
+    }
+
+
+    public void mousePressed (MouseEvent e)
+    {
+    }
+
+
+    public void mouseReleased (MouseEvent e)
+    {
+    }
+
+
+    public void mouseEntered (MouseEvent e)
+    {
+    }
+
+
+    public void mouseExited (MouseEvent e)
+    {
+    }
+
+
+    public void mouseClicked (MouseEvent e)
+    {
+	if (e.getSource () == menuStart)
+	{
+	    menuSelect++;
+	}
+	if (e.getSource () == nextLevel)
+	{
+	    menuSelect += menuSelect;
+	}
+	if (e.getSource () == restart)
+	{
+	    menuSelect = menuSelect;
+	}
+	repaint();
     }
 }
-
-
