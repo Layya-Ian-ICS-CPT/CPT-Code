@@ -11,8 +11,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     int keyCode = 0, menuSelect = 0;
     Button menuStart, nextLevel, restart;
+    BufferedImage[] img = new BufferedImage [8];
     public void init ()
     {
+	getImage ();
 	this.setLayout (null);
 	menuStart = new Button ("Press to begin");
 	menuStart.setBounds (470, 450, 250, 50);
@@ -105,21 +107,21 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 
 	g.drawRect (100, 325, 100, 100);
-	drawCannon (g);
+	drawCannon (100, 100, 250, g);
 
     }
 
 
-    public void getImage (BufferedImage[] img)
+    public void getImage ()
     {
-	String[] links = {"http://i.imgur.com/OaSlqSR.png",
-	    "http://i.imgur.com/STgsftB.png",
-	    "http://i.imgur.com/n7ZOq7y.png",
-	    "http://i.imgur.com/eKW7Jfr.png",
-	    "http://i.imgur.com/ZjtQosM.png",
-	    "http://i.imgur.com/FSnI1Pn.png",
-	    "http://i.imgur.com/Vu7b24F.png",
-	    "http://i.imgur.com/Metb2lR.png"};
+	String[] links = {"http://i.imgur.com/H1zmQ9f.png",
+	    "http://i.imgur.com/aWjBeWa.png",
+	    "http://i.imgur.com/1xMhfJ5.png",
+	    "http://i.imgur.com/lV1DiLL.png",
+	    "http://i.imgur.com/9ka1PgP.png",
+	    "http://i.imgur.com/f4xbPyx.png",
+	    "http://i.imgur.com/I2bTpAB.png",
+	    "http://i.imgur.com/ac9TRuf.png"};
 
 	for (int j = 0 ; j < img.length ; j++)
 	{
@@ -138,14 +140,17 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     }
 
 
-    public void drawCannon (BufferedImage[] image, Graphics g)
+    public void drawCannon (int x, int y, int delayTime, Graphics g)
     {
-	for (int m = 0 ; m < image.length ; m++)
+	while (true)
 	{
-	    g.drawImage (image [m], 100, 100, null);
-	    delay (100);
-	    g.setColor (Color.white);
-	    g.fillRect (100, 100, 300, 300);
+	    for (int m = 0 ; m < img.length ; m++)
+	    {
+		g.drawImage (img [m], x, y, null);
+		delay (delayTime);
+		g.setColor (Color.white);
+		g.fillRect (100, 100, 300, 300);
+	    }
 	}
     }
 
