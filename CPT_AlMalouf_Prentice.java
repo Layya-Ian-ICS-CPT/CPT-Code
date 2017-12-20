@@ -106,10 +106,22 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void levelOne (Graphics g)
     {
 
-	g.drawRect (100, 325, 100, 100);
+	g.setColor (new Color (174, 255, 255));
+	g.fillRect (0, 0, 1200, 800);
 	drawCannon (100, 100, 250, g);
+	drawStar (g);
 
     }
+
+
+    public void drawStar (Graphics g)
+    {
+	int[] starXPoint = {25, 37, 0, 50 ,12};
+	    int[] starYPoint = {0, 50, 20, 20, 50};
+	    g.drawPolygon (starXPoint, starYPoint, 5);
+    }
+
+    
 
 
     public void getImage ()
@@ -148,8 +160,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 		g.drawImage (img [m], x, y, null);
 		delay (delayTime);
-		g.setColor (Color.white);
-		g.fillRect (100, 100, 300, 300);
+		g.setColor (new Color (174, 255, 255));
+		g.fillRect (100, 100, 100, 100);
 	    }
 	}
     }
