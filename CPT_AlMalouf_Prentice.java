@@ -105,24 +105,61 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void levelOne (Graphics g)
     {
-
-	g.setColor (new Color (174, 255, 255));
-	g.fillRect (0, 0, 1200, 800);
-	drawCannon (100, 100, 250, g);
-	drawStar (g);
+	levelBackground (g);
+	drawTarget (g);
+	drawCannon (100, 330, 250, g);
+	drawStar (g, 200, 200);
 
     }
 
 
-    public void drawStar (Graphics g)
+    public void levelBackground (Graphics g)
     {
-	int[] starXPoint = {25, 37, 0, 50 ,12};
-	    int[] starYPoint = {0, 50, 20, 20, 50};
-	    g.drawPolygon (starXPoint, starYPoint, 5);
+	g.setColor (new Color (152, 218, 255));
+	g.fillRect (0, 0, 1200, 800);
+
+	g.setColor (Color.white);
+	g.fillOval (180, 150, 150, 60);
+	g.fillOval (200, 130, 60, 100);
+	g.fillOval (250, 130, 60, 100);
+	g.setColor (Color.white);
+	g.fillOval (520, 230, 150, 60);
+	g.fillOval (540, 210, 60, 100);
+	g.fillOval (590, 210, 60, 100);
+	g.setColor (Color.white);
+	g.fillOval (850, 90, 150, 60);
+	g.fillOval (870, 70, 60, 100);
+	g.fillOval (920, 70, 60, 100);
+
+	g.setColor (new Color (0, 153, 0));
+	g.fillArc (0, 600, 500, 250, 0, 180);
+	g.fillArc (350, 650, 500, 150, 0, 180);
+	g.fillArc (700, 620, 700, 450, 0, 180);
+	g.setColor (new Color (0, 204, 0));
+	g.fillRect (0, 700, 1200, 800);
+
     }
 
-    
 
+    public void drawTarget (Graphics g)
+    {
+	g.setColor (Color.red);
+	g.fillOval (1090, 330, 80, 80);
+	g.setColor (Color.white);
+	g.fillOval (1103, 344, 55, 55);
+	g.setColor (Color.red);
+	g.fillOval (1116, 357, 30, 30);
+    }
+
+
+    public void drawStar (Graphics g, int xStar, int yStar)
+    {
+	int[] starXPoint = {xStar + 25, xStar + 37, xStar + 0, xStar + 50, xStar + 12};
+	int[] starYPoint = {yStar + 0, yStar + 50, yStar + 20, yStar + 20, yStar + 50};
+
+	g.setColor (new Color (255, 240, 18));
+	g.drawPolygon (starXPoint, starYPoint, 5);
+    }
 
     public void getImage ()
     {
@@ -160,8 +197,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 		g.drawImage (img [m], x, y, null);
 		delay (delayTime);
-		g.setColor (new Color (174, 255, 255));
-		g.fillRect (100, 100, 100, 100);
+		g.setColor (new Color (152, 218, 255));
+		g.fillRect (100, 330, 100, 100);
 	    }
 	}
     }
