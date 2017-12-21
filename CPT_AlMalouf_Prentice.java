@@ -107,8 +107,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	levelBackground (g);
 	drawTarget (g);
-	drawCannon (100, 330, 250, g);
-	drawStar (g, 200, 200);
+	drawStar (g, 330, 325);
+	drawStar (g, 610, 325);
+	drawStar (g, 890, 325);
+	drawCannon (50, 250, 250, g);
+
 
     }
 
@@ -136,7 +139,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillArc (350, 650, 500, 150, 0, 180);
 	g.fillArc (700, 620, 700, 450, 0, 180);
 	g.setColor (new Color (0, 204, 0));
-	g.fillRect (0, 700, 1200, 800);
+	g.fillRect (0, 700, 1200, 100);
 
     }
 
@@ -144,33 +147,35 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void drawTarget (Graphics g)
     {
 	g.setColor (Color.red);
-	g.fillOval (1090, 330, 80, 80);
+	g.fillOval (1090, 310, 80, 80);
 	g.setColor (Color.white);
-	g.fillOval (1103, 344, 55, 55);
+	g.fillOval (1103, 323, 55, 55);
 	g.setColor (Color.red);
-	g.fillOval (1116, 357, 30, 30);
+	g.fillOval (1115, 335, 30, 30);
     }
 
 
     public void drawStar (Graphics g, int xStar, int yStar)
     {
-	int[] starXPoint = {xStar + 25, xStar + 37, xStar + 0, xStar + 50, xStar + 12};
+	int[] starXPoint = {xStar + 25, xStar + 40, xStar + 0, xStar + 50, xStar + 10};
 	int[] starYPoint = {yStar + 0, yStar + 50, yStar + 20, yStar + 20, yStar + 50};
 
 	g.setColor (new Color (255, 240, 18));
-	g.drawPolygon (starXPoint, starYPoint, 5);
+	g.fillPolygon (starXPoint, starYPoint, 5);
+	g.fillOval (xStar + 15, yStar + 18, 20, 21);
     }
+
 
     public void getImage ()
     {
-	String[] links = {"http://i.imgur.com/H1zmQ9f.png",
-	    "http://i.imgur.com/aWjBeWa.png",
-	    "http://i.imgur.com/1xMhfJ5.png",
-	    "http://i.imgur.com/lV1DiLL.png",
-	    "http://i.imgur.com/9ka1PgP.png",
-	    "http://i.imgur.com/f4xbPyx.png",
-	    "http://i.imgur.com/I2bTpAB.png",
-	    "http://i.imgur.com/ac9TRuf.png"};
+	String[] links = {"http://i.imgur.com/h4KxyQU.png",
+	    "http://i.imgur.com/EwZOz7N.png",
+	    "http://i.imgur.com/lbpcUy2.png",
+	    "http://i.imgur.com/z3ZkqgE.png",
+	    "http://i.imgur.com/qH6cBgJ.png",
+	    "http://i.imgur.com/4Wt9OIu.png",
+	    "http://i.imgur.com/hMOsH1Q.png",
+	    "http://i.imgur.com/zWIWL05.png"};
 
 	for (int j = 0 ; j < img.length ; j++)
 	{
@@ -189,16 +194,16 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     }
 
 
-    public void drawCannon (int x, int y, int delayTime, Graphics g)
+    public void drawCannon (int xCannon, int yCannon, int delayTime, Graphics g)
     {
 	while (true)
 	{
 	    for (int m = 0 ; m < img.length ; m++)
 	    {
-		g.drawImage (img [m], x, y, null);
+		g.drawImage (img [m], xCannon, yCannon, null);
 		delay (delayTime);
 		g.setColor (new Color (152, 218, 255));
-		g.fillRect (100, 330, 100, 100);
+		g.fillRect (xCannon, yCannon, 200, 200);
 	    }
 	}
     }
