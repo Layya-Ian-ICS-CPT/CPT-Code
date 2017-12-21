@@ -9,8 +9,10 @@ import java.net.URL;
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
 
-    int keyCode = 0, menuSelect = 0;
+    int keyCode, menuSelect = 0;
+
     Button menuStart, nextLevel, restart;
+    boolean ifShoot = true;
     BufferedImage[] img = new BufferedImage [8];
     public void init ()
     {
@@ -196,14 +198,19 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void drawCannon (int xCannon, int yCannon, int delayTime, Graphics g)
     {
-	while (true)
+	for (int m = 0 ; m < img.length ; m++)
 	{
-	    for (int m = 0 ; m < img.length ; m++)
+	    g.drawImage (img [m], xCannon, yCannon, null);
+	    delay (delayTime);
+	    g.setColor (new Color (152, 218, 255));
+	    g.fillRect (xCannon, yCannon, 200, 200);
+	    if (!ifShoot)
 	    {
-		g.drawImage (img [m], xCannon, yCannon, null);
-		delay (delayTime);
-		g.setColor (new Color (152, 218, 255));
-		g.fillRect (xCannon, yCannon, 200, 200);
+		break;
+	    }
+	    if (m == 7)
+	    {
+		m = -1;
 	    }
 	}
     }
@@ -224,16 +231,18 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void keyTyped (KeyEvent k)
     {
-	keyCode = k.getKeyCode ();
-	if (keyCode == 32)
-	{
-	    repaint ();
-	}
+
     }
 
 
     public void keyPressed (KeyEvent k)
     {
+	keyCode = k.getKeyCode ();
+	if (keyCode == 32)
+	{
+	    ifShoot = false;
+	    repaint ();
+	}            
 
     }
 
