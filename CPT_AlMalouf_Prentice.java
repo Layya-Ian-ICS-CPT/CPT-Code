@@ -9,11 +9,11 @@ import java.net.URL;
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
 
-    int keyCode, menuSelect = 0;
-
+    int keyCode = 0, menuSelect = 0, frameCounter = 0;
     Button menuStart, nextLevel, restart;
     boolean ifShoot = true;
     BufferedImage[] img = new BufferedImage [8];
+
     public void init ()
     {
 	getImage ();
@@ -100,7 +100,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.setColor (new Color (171, 149, 132));
 	    g.fillOval (x, y, 50, 50);
 	    x = x + 10;
-	    y = y - 5;
+	    y = y - 12;
 	}
     }
 
@@ -113,8 +113,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	drawStar (g, 610, 325);
 	drawStar (g, 890, 325);
 	drawCannon (50, 250, 250, g);
-
-
+	repaint();
     }
 
 
@@ -198,21 +197,50 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void drawCannon (int xCannon, int yCannon, int delayTime, Graphics g)
     {
-	for (int m = 0 ; m < img.length ; m++)
+	Color filler = new Color (152, 218, 255);
+
+	/*while(ifShoot)
 	{
-	    g.drawImage (img [m], xCannon, yCannon, null);
-	    delay (delayTime);
-	    g.setColor (new Color (152, 218, 255));
-	    g.fillRect (xCannon, yCannon, 200, 200);
-	    if (!ifShoot)
+	    for (int j = 0; j < 8; j++)
 	    {
-		break;
+		g.drawImage (img [j], xCannon, yCannon, null);
+		delay(delayTime);
+		{
+		    if (ifShoot == false)
+		    {
+		    break;
+		    }
+		}
+		g.setColor (filler);
+		g.fillRect (xCannon, yCannon, 200, 200);
 	    }
-	    if (m == 7)
+	}*/
+	//note: the first iteration of the second frame skips and idk why help :/
+	g.drawImage (img [frameCounter], xCannon, yCannon, null);
+	delay (delayTime - 20);
+	if (ifShoot)
+	{
+	    if (keyCode != 32)
 	    {
-		m = -1;
+		g.setColor (filler);
+		g.fillRect (xCannon, yCannon, 200, 200);
+		frameCounter++;
+		if (frameCounter == 8)
+		{
+		    frameCounter = 0;
+		}
+	    }
+	    else
+	    {
+		if (frameCounter == 0)
+		{
+		    frameCounter = 8;
+		}
+		frameCounter -= 1;
+		ifShoot = false;
 	    }
 	}
+	
     }
 
 
@@ -238,12 +266,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void keyPressed (KeyEvent k)
     {
 	keyCode = k.getKeyCode ();
-	if (keyCode == 32)
-	{
-	    ifShoot = false;
-	    repaint ();
-	}            
-
+	repaint ();
     }
 
 
@@ -281,11 +304,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (e.getSource () == nextLevel)
 	{
-	    menuSelect += menuSelect;
+	    menuSelect++;
 	}
 	if (e.getSource () == restart)
 	{
-	    menuSelect = menuSelect;
+	    menuSelect++;
 	}
 	repaint ();
     }
