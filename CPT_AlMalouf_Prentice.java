@@ -9,9 +9,9 @@ import java.net.URL;
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
 
-    int keyCode = 0, menuSelect = 0, frameCounter = 0;
+    int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0;
     Button menuStart, nextLevel, restart;
-    boolean ifShoot = true;
+    boolean ifShoot = false;
     BufferedImage[] img = new BufferedImage [8];
 
     public void init ()
@@ -51,7 +51,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (menuSelect == 2)
 	{
-	    //levelTwo ();
+	    levelTwo (g);
+	}
+	if (menuSelect == 3)
+	{
+	    levelThree (g);
 	}
 
     }
@@ -109,11 +113,58 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	levelBackground (g);
 	drawTarget (g);
-	drawStar (g, 330, 325);
-	drawStar (g, 610, 325);
+	if (cannonSelector == 0)
+	{
+	    drawStar (g, 330, 325);
+	    drawStar (g, 610, 325);
+	    drawStar (g, 890, 325);
+	    drawCannon (50, 250, 250, g);
+	}
+
+	g.setColor (new Color (152, 218, 255));
+	g.fillRect (x, y, 200, 200);
+	if (ifShoot)
+	{
+	    cannonSelector++;
+	    g.drawImage (img [frameCounter], x, y, null);
+	    projectile (g);
+	}
+    }
+
+
+    public void levelTwo (Graphics g)
+    {
+	levelBackground (g);
+	g.setColor (Color.black);
+	g.fillRect (400, 270, 60, 200);
+	//g.fillRect(400,100,100,40);
+	drawTarget (g);
+	drawStar (g, 250, 205);
+	drawStar (g, 550, 205);
+	drawStar (g, 990, 325);
+	drawCannon (50, 250, 220, g);
+	drawCannon (325, 0, 220, g);
+	drawCannon (600, 250, 220, g);
+	drawObstacle (g, 850, 200);
+	repaint ();
+    }
+
+
+    public void levelThree (Graphics g)
+    {
+	levelBackground (g);
+	drawTarget (g);
+	drawStar (g, 330, 225);
+	drawStar (g, 650, 325);
 	drawStar (g, 890, 325);
-	drawCannon (50, 250, 250, g);
-	repaint();
+	drawCannon (50, 250, 220, g);
+	drawCannon (200, 100, 220, g);
+	drawCannon (300, 250, 220, g);
+	g.setColor (Color.black);
+	g.fillRect (150, 200, 40, 100);
+	g.fillRect (400, 200, 40, 100);
+	g.fillRect (400, 400, 40, 100);
+	repaint ();
     }
 
 
@@ -122,7 +173,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (new Color (152, 218, 255));
 	g.fillRect (0, 0, 1200, 800);
 
-	g.setColor (Color.white);
+	/*g.setColor (Color.white);
 	g.fillOval (180, 150, 150, 60);
 	g.fillOval (200, 130, 60, 100);
 	g.fillOval (250, 130, 60, 100);
@@ -133,7 +184,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (Color.white);
 	g.fillOval (850, 90, 150, 60);
 	g.fillOval (870, 70, 60, 100);
-	g.fillOval (920, 70, 60, 100);
+	g.fillOval (920, 70, 60, 100);*/
 
 	g.setColor (new Color (0, 153, 0));
 	g.fillArc (0, 600, 500, 250, 0, 180);
@@ -153,6 +204,27 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillOval (1103, 323, 55, 55);
 	g.setColor (Color.red);
 	g.fillOval (1115, 335, 30, 30);
+    }
+
+
+    public void drawObstacle (Graphics g, int xObstacle, int yObstacle)
+    {
+
+	int dy = 2;
+
+	while (true)
+	{
+	    g.setColor (Color.black);
+	    g.fillRect (xObstacle, yObstacle, 40, 100);
+	    delay (5);
+	    g.setColor (new Color (152, 218, 255));
+	    g.fillRect (xObstacle, yObstacle, 40, 100);
+	    yObstacle += dy;
+	    if (yObstacle > 540 || yObstacle < 100)
+	    {
+		dy = -dy;
+	    }
+	}
     }
 
 
@@ -189,9 +261,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 
 	    }
-
 	}
-
     }
 
 
@@ -217,8 +287,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}*/
 	//note: the first iteration of the second frame skips and idk why help :/
 	g.drawImage (img [frameCounter], xCannon, yCannon, null);
-	delay (delayTime - 20);
-	if (ifShoot)
+	delay (delayTime - 0);
+	if (!ifShoot)
 	{
 	    if (keyCode != 32)
 	    {
@@ -237,10 +307,42 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		    frameCounter = 8;
 		}
 		frameCounter -= 1;
-		ifShoot = false;
+		ifShoot = true;
+
 	    }
+	    x = xCannon;
+	    y = yCannon;
+	    repaint ();
 	}
-	
+
+    }
+
+
+    public void projectile (Graphics g)
+    {
+	int[] dxValues = {0, 1, 2, 1, 0, -1, -2, -1};
+	int[] dyValues = { - 2, -1, 0, 1, 2, 1, 0, -1};
+
+	while (true)
+	{
+	    g.setColor (Color.black);
+	    g.fillOval (x + 75, y + 75, 50, 50);
+	    delay (5);
+	    g.setColor (new Color (152, 218, 255));
+	    g.fillOval (x + 75, y + 75, 50, 50);
+	    if (x > 1040 || x < 0)
+	    {
+		menuSelect++;
+		break;
+	    }
+	    if (y > 750 || y < 0)
+	    {
+		break;
+	    }
+	    x += dxValues [frameCounter];
+	    y += dyValues [frameCounter];
+	}
+	ifShoot = false;
     }
 
 
@@ -313,3 +415,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	repaint ();
     }
 }
+
+
+
