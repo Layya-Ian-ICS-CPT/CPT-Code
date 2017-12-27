@@ -213,7 +213,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		}
 		g.setColor (filler);
 		g.fillRect (xCannon, yCannon, 200, 200);
-	    }
+	    } yuh
 	}*/
 	//note: the first iteration of the second frame skips and idk why help :/
 	g.drawImage (img [frameCounter], xCannon, yCannon, null);
