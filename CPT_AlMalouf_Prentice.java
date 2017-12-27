@@ -11,7 +11,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0;
     Button menuStart, nextLevel, restart;
-    boolean ifShoot = false;
+    boolean ifShoot = false, ifTravelled = false, ifHit;
     BufferedImage[] img = new BufferedImage [8];
 
     public void init ()
@@ -46,17 +46,25 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (menuSelect == 1)
 	{
+	    ifHit = false;
+	    cannonSelector = 0;
 	    remove (menuStart);
 	    levelOne (g);
 	}
 	if (menuSelect == 2)
 	{
+	    init ();
+	    remove (nextLevel);
+	    remove (restart);
+	    remove (menuStart);
+	    cannonSelector = 0;
 	    levelTwo (g);
 	}
 	if (menuSelect == 3)
 	{
 	    levelThree (g);
 	}
+
 
     }
 
@@ -65,7 +73,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	int[] pointx = {250, 300, 200, 130};
 	int[] pointy = {200, 230, 400, 330};
-	int x = 300, y = 150, dx = 1, dy = -1;
+	int xTitle = 300, yTitle = 150, dx = 1, dy = -1;
 	char input;
 
 	//this section contains the graphics that creates the cannon
@@ -93,18 +101,18 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	while (true)
 	{
 	    g.setColor (Color.white);
-	    g.fillOval (x, y, 50, 50);
-	    if (y < 25)
+	    g.fillOval (xTitle, yTitle, 50, 50);
+	    if (yTitle < 25)
 	    {
 		g.setColor (new Color (171, 149, 132));
-		g.fillOval (x, y, 50, 50);
+		g.fillOval (xTitle, yTitle, 50, 50);
 		break;
 	    }
 	    delay (30);
 	    g.setColor (new Color (171, 149, 132));
-	    g.fillOval (x, y, 50, 50);
-	    x = x + 10;
-	    y = y - 12;
+	    g.fillOval (xTitle, yTitle, 50, 50);
+	    xTitle = xTitle + 10;
+	    yTitle = yTitle - 12;
 	}
     }
 
@@ -115,20 +123,24 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	drawTarget (g);
 	if (cannonSelector == 0)
 	{
+	    drawCannon (50, 250, 250, g);
+	}
+	if (ifHit == false)
+	{
 	    drawStar (g, 330, 325);
 	    drawStar (g, 610, 325);
 	    drawStar (g, 890, 325);
-	    drawCannon (50, 250, 250, g);
 	}
 
-	g.setColor (new Color (152, 218, 255));
-	g.fillRect (x, y, 200, 200);
 	if (ifShoot)
 	{
+	    g.setColor (new Color (152, 218, 255));
+	    g.fillRect (x, y, 200, 200);
+	    g.drawImage (img [frameCounter], 50, 250, null);
 	    cannonSelector++;
-	    g.drawImage (img [frameCounter], x, y, null);
-	    projectile (g);
+	    projectile (330, 325, g);
 	}
+	repaint ();
     }
 
 
@@ -173,18 +185,18 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (new Color (152, 218, 255));
 	g.fillRect (0, 0, 1200, 800);
 
-	/*g.setColor (Color.white);
-	g.fillOval (180, 150, 150, 60);
-	g.fillOval (200, 130, 60, 100);
-	g.fillOval (250, 130, 60, 100);
-	g.setColor (Color.white);
-	g.fillOval (520, 230, 150, 60);
-	g.fillOval (540, 210, 60, 100);
-	g.fillOval (590, 210, 60, 100);
-	g.setColor (Color.white);
-	g.fillOval (850, 90, 150, 60);
-	g.fillOval (870, 70, 60, 100);
-	g.fillOval (920, 70, 60, 100);*/
+	/* g.setColor (Color.white);
+	 g.fillOval (180, 150, 150, 60);
+	 g.fillOval (200, 130, 60, 100);
+	 g.fillOval (250, 130, 60, 100);
+	 g.setColor (Color.white);
+	 g.fillOval (520, 230, 150, 60);
+	 g.fillOval (540, 210, 60, 100);
+	 g.fillOval (590, 210, 60, 100);
+	 g.setColor (Color.white);
+	 g.fillOval (850, 90, 150, 60);
+	 g.fillOval (870, 70, 60, 100);
+	 g.fillOval (920, 70, 60, 100);*/
 
 	g.setColor (new Color (0, 153, 0));
 	g.fillArc (0, 600, 500, 250, 0, 180);
@@ -204,6 +216,17 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillOval (1103, 323, 55, 55);
 	g.setColor (Color.red);
 	g.fillOval (1115, 335, 30, 30);
+    }
+
+
+    public void drawStar (Graphics g, int xStar, int yStar)
+    {
+	int[] starXPoint = {xStar + 25, xStar + 40, xStar + 0, xStar + 50, xStar + 10};
+	int[] starYPoint = {yStar + 0, yStar + 50, yStar + 20, yStar + 20, yStar + 50};
+
+	g.setColor (new Color (255, 240, 18));
+	g.fillPolygon (starXPoint, starYPoint, 5);
+	g.fillOval (xStar + 15, yStar + 18, 20, 21);
     }
 
 
@@ -228,16 +251,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     }
 
 
-    public void drawStar (Graphics g, int xStar, int yStar)
-    {
-	int[] starXPoint = {xStar + 25, xStar + 40, xStar + 0, xStar + 50, xStar + 10};
-	int[] starYPoint = {yStar + 0, yStar + 50, yStar + 20, yStar + 20, yStar + 50};
-
-	g.setColor (new Color (255, 240, 18));
-	g.fillPolygon (starXPoint, starYPoint, 5);
-	g.fillOval (xStar + 15, yStar + 18, 20, 21);
-    }
-
 
     public void getImage ()
     {
@@ -261,7 +274,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 
 	    }
+
 	}
+
     }
 
 
@@ -312,37 +327,45 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    }
 	    x = xCannon;
 	    y = yCannon;
-	    repaint ();
+
 	}
 
     }
 
 
-    public void projectile (Graphics g)
+    public void projectile (int xOfStar, int yOfStar, Graphics g)
     {
 	int[] dxValues = {0, 1, 2, 1, 0, -1, -2, -1};
 	int[] dyValues = { - 2, -1, 0, 1, 2, 1, 0, -1};
 
-	while (true)
+	while (ifTravelled == false)
 	{
 	    g.setColor (Color.black);
 	    g.fillOval (x + 75, y + 75, 50, 50);
 	    delay (5);
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillOval (x + 75, y + 75, 50, 50);
-	    if (x > 1040 || x < 0)
+	    if (x > 1040)
 	    {
 		menuSelect++;
 		break;
 	    }
-	    if (y > 750 || y < 0)
+	    else if (x < 0)
 	    {
 		break;
+	    }
+	    else if (y > 750 || y < 0)
+	    {
+		break;
+	    }
+	    if (x == xOfStar && y == yOfStar)
+	    {
+		ifHit = true;
 	    }
 	    x += dxValues [frameCounter];
 	    y += dyValues [frameCounter];
 	}
-	ifShoot = false;
+	ifTravelled = true;
     }
 
 
@@ -415,6 +438,5 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	repaint ();
     }
 }
-
 
 
