@@ -9,7 +9,7 @@ import java.net.URL;
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
 
-    int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0;
+    int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0, starCounter = 0;
     Button menuStart, nextLevel, restart;
     boolean ifShoot = false, ifTravelled = false, ifHit;
     BufferedImage[] img = new BufferedImage [8];
@@ -50,9 +50,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    cannonSelector = 0;
 	    remove (menuStart);
 	    levelOne (g);
+	    
 	}
 	if (menuSelect == 2)
 	{
+	    
 	    init ();
 	    remove (nextLevel);
 	    remove (restart);
@@ -116,22 +118,30 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
     }
 
-
+    public void starsCollected (Graphics g)
+    {
+	Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 30);
+	g.setFont (starFont);
+	g.setColor(Color.black);
+	g.drawString ("Stars Collected: " + starCounter, 0, 50);
+    }
     public void levelOne (Graphics g)
     {
 	levelBackground (g);
+	starsCollected(g);
 	drawTarget (g);
 	if (cannonSelector == 0)
 	{
+	    if (ifHit == false)
+	    {
+		drawStar (g, 330, 325);
+		drawStar (g, 610, 325);
+		drawStar (g, 890, 325);
+	    }
+
 	    drawCannon (50, 250, 250, g);
 	}
-	if (ifHit == false)
-	{
-	    drawStar (g, 330, 325);
-	    drawStar (g, 610, 325);
-	    drawStar (g, 890, 325);
-	}
-
+	
 	if (ifShoot)
 	{
 	    g.setColor (new Color (152, 218, 255));
@@ -139,6 +149,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.drawImage (img [frameCounter], 50, 250, null);
 	    cannonSelector++;
 	    projectile (330, 325, g);
+	    
+	}
+	if (starCounter == 1)
+	{
+	starCounter += 2;
 	}
 	repaint ();
     }
@@ -147,6 +162,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void levelTwo (Graphics g)
     {
 	levelBackground (g);
+	starsCollected(g);
 	g.setColor (Color.black);
 	g.fillRect (400, 270, 60, 200);
 	//g.fillRect(400,100,100,40);
@@ -325,8 +341,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		ifShoot = true;
 
 	    }
-	    x = xCannon;
-	    y = yCannon;
+	    x = xCannon + 75;
+	    y = yCannon + 75;
 
 	}
 
@@ -335,37 +351,45 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void projectile (int xOfStar, int yOfStar, Graphics g)
     {
-	int[] dxValues = {0, 1, 2, 1, 0, -1, -2, -1};
-	int[] dyValues = { - 2, -1, 0, 1, 2, 1, 0, -1};
+	int[] dxValues = {0, 1, 1, 1, 0, -1, -1, -1};
+	int[] dyValues = { - 1, -1, 0, 1, 1, 1, 0, -1};
 
 	while (ifTravelled == false)
 	{
+	    x += dxValues [frameCounter];
+	    y += dyValues [frameCounter];
 	    g.setColor (Color.black);
-	    g.fillOval (x + 75, y + 75, 50, 50);
+	    g.fillOval (x, y, 50, 50);
 	    delay (5);
 	    g.setColor (new Color (152, 218, 255));
-	    g.fillOval (x + 75, y + 75, 50, 50);
+	    g.fillOval (x, y, 50, 50);
+	    if (x == xOfStar && y == yOfStar)
+	    {
+		starCounter++;
+		ifHit = true;
+		break;
+	    }
 	    if (x > 1040)
 	    {
 		menuSelect++;
+		ifTravelled = true;
 		break;
+
 	    }
 	    else if (x < 0)
 	    {
+		ifTravelled = true;
 		break;
 	    }
 	    else if (y > 750 || y < 0)
 	    {
+		ifTravelled = true;
 		break;
 	    }
-	    if (x == xOfStar && y == yOfStar)
-	    {
-		ifHit = true;
-	    }
-	    x += dxValues [frameCounter];
-	    y += dyValues [frameCounter];
+
+	    
 	}
-	ifTravelled = true;
+
     }
 
 
