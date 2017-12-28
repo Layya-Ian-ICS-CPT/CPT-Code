@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.net.URL;
-//yuh
+
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
 
@@ -43,7 +43,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		resetCounter++;
 	    }
 	    ifHit = false;
-	    cannonSelector = 0;
 	    remove (menuStart);
 	    levelOne (g);
 
@@ -61,8 +60,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		resetCounter++;
 	    }
-	    cannonSelector = 0;
-
 	    levelTwo (g);
 	}
 	if (menuSelect == 4)
@@ -108,15 +105,15 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillRect (170, 360, 15, 80);
 
 	//this section contains all the draw string methods that print the game title and others
-	Font newFont = new Font ("verdana", Font.BOLD + Font.PLAIN, 100);
+	Font newFont = new Font ("verdana", Font.BOLD, 100);
 	g.setFont (newFont);
 	g.setColor (Color.red);
 	g.drawString ("Cannon Launch", 240, 400);
-	Font newFont2 = new Font ("verdana", Font.BOLD + Font.ITALIC, 30);
+	Font newFont2 = new Font ("verdana", Font.PLAIN, 30);
 	g.setFont (newFont2);
 	g.setColor (Color.black);
 	g.drawString ("Layya Al Malouf & Ian Prentice", 50, 750);
-	g.drawString ("ICS 3U1", 50, 800);
+	g.drawString ("ICS 3U1 CPT", 50, 800);
 
 	while (true)
 	{
@@ -161,6 +158,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setFont (levelFont2);
 	g.setColor (new Color (96, 96, 96));
 	g.drawString ("Stars Collected: " + starCounter, 370, 420);
+	Font levelFont3 = new Font ("verdana", Font.PLAIN, 25);
+	g.setFont (levelFont3);
+	g.drawString ("Press the left arrow key to retry the level", 345, 700);
+	g.drawString ("Press the right arrow key to go to the next level", 300, 750);
+
 
 	g.setColor (Color.black);
 	g.fillPolygon (pointx, pointy, 4);
@@ -168,6 +170,18 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (Color.yellow);
 	g.fillRect (130, 420, 100, 30);
 	g.fillRect (170, 360, 15, 80);
+
+	if (keyCode == 37)
+	{
+	    resetCounter--;
+	    starCounter -= 3;
+	    menuSelect--;
+	}
+	if (keyCode == 39)
+	{
+	    menuSelect++;
+	}
+	
     }
 
 
@@ -180,6 +194,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	starsCollected (g);
 	drawTarget (g);
 	boolean failedLevel = false;
+	
 	if (cannonSelector == 0)
 	{
 	    if (ifHit == false)
@@ -188,17 +203,16 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		drawStar (g, 610, 325);
 		drawStar (g, 890, 325);
 	    }
-
 	    drawCannon (50, 250, 250, g);
 	}
 
 	if (ifShoot)
 	{
 	    g.setColor (new Color (152, 218, 255));
-	    g.fillRect (x, y, 200, 200);
+	    g.fillRect (50, 250, 200, 200);
 	    g.drawImage (img [frameCounter], 50, 250, null);
 	    cannonSelector++;
-	    failedLevel = projectile (330, 325, g);
+	    failedLevel = projectile (330, 325, 50, 250, g);
 
 	}
 	if (starCounter == 1)
@@ -215,6 +229,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void levelTwo (Graphics g)
     {
+	boolean failedLevel = false;
+	int[] xOfCannon = {50, 325, 600};
+	int[] yOfCannon = {250, 0, 250};
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
@@ -225,6 +242,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillRect (400, 270, 60, 200);
 	//g.fillRect(400,100,100,40);
 	drawTarget (g);
+	
 	if (cannonSelector == 0)
 	{
 	    if (ifHit == false)
@@ -235,8 +253,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.drawImage (img [0], 600, 250, null);
 	    drawStar (g, 550, 205);
 	    drawStar (g, 990, 325);
-	    drawCannon (50, 250, 220, g);
+	    drawCannon (xOfCannon [0], yOfCannon [0], 220, g);
 	}
+
 	else if (cannonSelector == 1)
 	{
 	    if (ifHit == false)
@@ -246,7 +265,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.drawImage (img [0], 50, 250, null);
 	    g.drawImage (img [0], 600, 250, null);
 	    drawStar (g, 990, 325);
-	    drawCannon (325, 0, 220, g);
+	    drawCannon (xOfCannon [1], yOfCannon [1], 220, g);
 	}
 	else if (cannonSelector == 2)
 	{
@@ -256,9 +275,17 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    }
 	    g.drawImage (img [0], 325, 0, null);
 	    g.drawImage (img [0], 50, 250, null);
-	    drawCannon (600, 250, 220, g);
+	    drawCannon (xOfCannon [2], yOfCannon [2], 220, g);
 	}
-
+	if (ifShoot)
+	{
+	    g.setColor (new Color (152, 218, 255));
+	    g.fillRect (xOfCannon [cannonSelector - 1], yOfCannon [cannonSelector - 1], 200, 200);
+	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector - 1], yOfCannon [cannonSelector - 1], null);
+	}
+	
+	cannonSelector++;
+	failedLevel = projectile (330, 325, xOfCannon [cannonSelector - 1], yOfCannon [cannonSelector - 1], g);
 	//drawObstacle (g, 850, 200);
 	repaint ();
     }
@@ -267,19 +294,24 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void levelThree (Graphics g)
     {
 	levelBackground (g);
+	g.setFont (starFont);
+	g.setColor (Color.black);
+	g.drawString ("Level Three", 0, 20);
+	starsCollected (g);
+	drawCannon (0, 250, 200, g);
+	drawCannon (450, 250, 200, g);
+	drawCannon (780, 250, 200, g);
+	drawCannon (230, 500, 200, g);
+	drawCannon (230, 0, 200, g);
 	drawTarget (g);
 	g.setColor (Color.black);
 	g.fillRect (690, 100, 60, 200);
-	g.fillRect (690, 400, 60, 200);
-	drawStar (g, 330, 225);
-	drawStar (g, 650, 325);
-	drawStar (g, 890, 325);
-	drawCannon (0, 250, 200, g);
-	drawCannon (450, 250, 200, g);
-	drawCannon (750, 250, 200, g);
-	drawCannon (230, 450, 200, g);
-	drawCannon (230, 0, 200, g);
-	drawObstacle (g, 950, 200);
+	g.fillRect (690, 410, 60, 200);
+	g.fillRect (300, 250, 60, 170);
+	drawStar (g, 430, 200);
+	drawStar (g, 695, 325);
+	drawStar (g, 430, 445);
+	drawObstacle (g, 980, 200);
 	repaint ();
     }
 
@@ -366,7 +398,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    }
 
 	}
-
     }
 
 
@@ -375,6 +406,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	Color filler = new Color (152, 218, 255);
 	g.drawImage (img [frameCounter], xCannon, yCannon, null);
 	delay (delayTime - 0);
+	
 	if (!ifShoot)
 	{
 	    if (keyCode != 32)
@@ -402,11 +434,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    y = yCannon + 75;
 
 	}
-
     }
 
 
-    public boolean projectile (int xOfStar, int yOfStar, Graphics g)
+    public boolean projectile (int xOfStar, int yOfStar, int xCannons, int yCannons, Graphics g)
     {
 	int[] dxValues = {0, 1, 1, 1, 0, -1, -1, -1};
 	int[] dyValues = { - 1, -1, 0, 1, 1, 1, 0, -1};
@@ -421,6 +452,14 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    delay (3);
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillOval (x, y, 50, 50);
+	    if (x > xCannons)
+	    {
+		if (y > yCannons - 200 && y < yCannons)
+		{
+		    cannonSelector++;
+		    break;
+		}
+	    }
 	    if (x == xOfStar && y == yOfStar)
 	    {
 		starCounter++;
@@ -451,6 +490,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 
 	}
+
+
 	return ifFailed;
     }
 
@@ -494,6 +535,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    Thread.sleep (time);
 	}
 
+
 	catch (InterruptedException e)
 	{
 	}
@@ -509,14 +551,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void keyPressed (KeyEvent k)
     {
 	keyCode = k.getKeyCode ();
-	if (keyCode == 37)
-	{
-	    menuSelect--;
-	}
-	if (keyCode == 39)
-	{
-	    menuSelect++;
-	}
+
 	repaint ();
 
     }
@@ -554,8 +589,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	{
 	    menuSelect++;
 	}
+
+
 	repaint ();
     }
 }
+
+
 
 
