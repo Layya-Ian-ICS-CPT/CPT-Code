@@ -50,11 +50,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    cannonSelector = 0;
 	    remove (menuStart);
 	    levelOne (g);
-	    
+
 	}
 	if (menuSelect == 2)
 	{
-	    
+
 	    init ();
 	    remove (nextLevel);
 	    remove (restart);
@@ -118,18 +118,27 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
     }
 
+
     public void starsCollected (Graphics g)
     {
-	Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 30);
+	Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 20);
 	g.setFont (starFont);
-	g.setColor(Color.black);
+	g.setColor (Color.black);
 	g.drawString ("Stars Collected: " + starCounter, 0, 50);
     }
+
+
     public void levelOne (Graphics g)
     {
 	levelBackground (g);
-	starsCollected(g);
+	Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 20);
+	g.setFont (starFont);
+	g.setColor (Color.black);
+	g.drawString ("Level One", 0, 20);
+
+	starsCollected (g);
 	drawTarget (g);
+	boolean failedLevel = false;
 	if (cannonSelector == 0)
 	{
 	    if (ifHit == false)
@@ -141,19 +150,23 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	    drawCannon (50, 250, 250, g);
 	}
-	
+
 	if (ifShoot)
 	{
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillRect (x, y, 200, 200);
 	    g.drawImage (img [frameCounter], 50, 250, null);
 	    cannonSelector++;
-	    projectile (330, 325, g);
-	    
+	    failedLevel = projectile (330, 325, g);
+
 	}
 	if (starCounter == 1)
 	{
-	starCounter += 2;
+	    starCounter += 2;
+	}
+	if (failedLevel)
+	{
+	    failScreen (g);
 	}
 	repaint ();
     }
@@ -162,7 +175,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void levelTwo (Graphics g)
     {
 	levelBackground (g);
-	starsCollected(g);
+	Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 20);
+	g.setFont (starFont);
+	g.setColor (Color.black);
+	g.drawString ("Level Two", 0, 20);
+	starsCollected (g);
 	g.setColor (Color.black);
 	g.fillRect (400, 270, 60, 200);
 	//g.fillRect(400,100,100,40);
@@ -182,16 +199,18 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	levelBackground (g);
 	drawTarget (g);
+	g.setColor (Color.black);
+	g.fillRect (690, 100, 60, 200);
+	g.fillRect (690, 400, 60, 200);
 	drawStar (g, 330, 225);
 	drawStar (g, 650, 325);
 	drawStar (g, 890, 325);
-	drawCannon (50, 250, 220, g);
-	drawCannon (200, 100, 220, g);
-	drawCannon (300, 250, 220, g);
-	g.setColor (Color.black);
-	g.fillRect (150, 200, 40, 100);
-	g.fillRect (400, 200, 40, 100);
-	g.fillRect (400, 400, 40, 100);
+	drawCannon (0, 250, 200, g);
+	drawCannon (450, 250, 200, g);
+	drawCannon (750, 250, 200, g);
+	drawCannon (230, 450, 200, g);
+	drawCannon (230, 0, 200, g);
+	drawObstacle (g, 950, 200);
 	repaint ();
     }
 
@@ -349,10 +368,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     }
 
 
-    public void projectile (int xOfStar, int yOfStar, Graphics g)
+    public boolean projectile (int xOfStar, int yOfStar, Graphics g)
     {
 	int[] dxValues = {0, 1, 1, 1, 0, -1, -1, -1};
 	int[] dyValues = { - 1, -1, 0, 1, 1, 1, 0, -1};
+	boolean ifFailed = false;
 
 	while (ifTravelled == false)
 	{
@@ -360,7 +380,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    y += dyValues [frameCounter];
 	    g.setColor (Color.black);
 	    g.fillOval (x, y, 50, 50);
-	    delay (5);
+	    delay (3);
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillOval (x, y, 50, 50);
 	    if (x == xOfStar && y == yOfStar)
@@ -371,25 +391,48 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    }
 	    if (x > 1040)
 	    {
-		menuSelect++;
-		ifTravelled = true;
-		break;
-
+		if (y >= 310 && y <= 390)
+		{
+		    menuSelect++;
+		    ifTravelled = true;
+		    break;
+		}
 	    }
 	    else if (x < 0)
 	    {
+		ifFailed = true;
 		ifTravelled = true;
 		break;
 	    }
 	    else if (y > 750 || y < 0)
 	    {
+		ifFailed = true;
 		ifTravelled = true;
 		break;
 	    }
 
-	    
-	}
 
+	}
+	return ifFailed;
+    }
+
+
+    public void failScreen (Graphics g)
+    {
+	g.setColor (Color.white);
+	g.fillRect (400, 350, 400, 100);
+	g.setColor (Color.black);
+	g.setFont (new Font ("verdana", Font.BOLD, 30));
+	g.drawString ("YOU HAVE FAILED", 450, 410);
+	delay (1000);
+	frameCounter = 0;
+	x = 0;
+	y = 0;
+	ifHit = false;
+	ifShoot = false;
+	ifTravelled = false;
+	starCounter = 0;
+	keyCode = 0;
     }
 
 
@@ -462,5 +505,3 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	repaint ();
     }
 }
-
-
