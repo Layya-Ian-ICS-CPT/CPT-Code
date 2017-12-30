@@ -88,7 +88,14 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (menuSelect == 7)
 	{
-	    //levelFour (g);
+	if (resetCounter == 3)
+	    {
+		valueReset ();
+		cannonSelector = 0;
+		ifHit = 0;
+		resetCounter++;
+	    }
+	    levelFour (g);
 
 	}
 	if (menuSelect == 8)
@@ -300,10 +307,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void levelTwo (Graphics g)
     {
 	boolean failedLevel = false;
-	int[] xOfCannon = {50, 325, 600};
+	int[] xOfCannon = {80, 330, 580};
 	int[] yOfCannon = {250, 0, 250};
-	int[] xOfStar = {250, 550, 990};
-	int[] yOfStar = {205, 205, 325};
+	int[] xOfStar = {275, 525, 835};
+	int[] yOfStar = {200, 200, 325};
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
@@ -369,7 +376,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void levelThree (Graphics g)
     {
 	boolean failedLevel = false;
-	int[] xOfCannon = {0, 230, 230, 450, 780};
+	int[] xOfCannon = {0, 200, 230, 450, 780};
 	int[] yOfCannon = {250, 0, 500, 250, 250};
 	int[] xOfStar = {430, 430, 695};
 	int[] yOfStar = {200, 445, 325};
@@ -452,7 +459,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
 	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
 	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, g);
-	    ifShoot = false;
+	    //ifShoot = false;
 	}
 
 	if (failedLevel)
@@ -463,31 +470,111 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	repaint ();
     }
 
-
-    public void levelThree2 (Graphics g)
+public void levelFour (Graphics g)
     {
+	boolean failedLevel = false;
+	int[] xOfCannon = {0, 0, 0, 440, 440, 840, };
+	int[] yOfCannon = {80, 320, 560, 80, 560, 250};
+	int[] xOfStar = {475, 0, 0};
+	int[] yOfStar = {395, 0, 100};
+
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
-	g.drawString ("Level Three", 0, 20);
+	g.drawString ("Level Four", 0, 20);
 	starsCollected (g);
-	drawCannon (0, 250, 200, g);
-	drawCannon (450, 250, 200, g);
-	drawCannon (780, 250, 200, g);
-	drawCannon (230, 500, 200, g);
-	drawCannon (230, 0, 200, g);
-	drawTarget (g);
+
 	g.setColor (Color.black);
-	g.fillRect (690, 100, 60, 200);
-	g.fillRect (690, 410, 60, 200);
-	g.fillRect (300, 250, 60, 170);
-	drawStar (g, 430, 200);
-	drawStar (g, 695, 325);
-	drawStar (g, 430, 445);
-	drawObstacle (g, 980, 200);
+	g.fillRect (200, 80, 60, 100);
+	g.fillRect (200, 560, 60, 100);
+	drawTarget (g);
+
+	if (ifHit == 0)
+	{
+	    drawStar (g, xOfStar [0], yOfStar [0]);
+	    drawStar (g, xOfStar [1], yOfStar [1]);
+	    drawStar (g, xOfStar [2], yOfStar [2]);
+	}
+	else if (ifHit == 1)
+	{
+	    drawStar (g, xOfStar [1], yOfStar [1]);
+	    drawStar (g, xOfStar [2], yOfStar [2]);
+	}
+	else if (ifHit == 2)
+	{
+	    drawStar (g, xOfStar [2], yOfStar [2]);
+	}
+
+	if (cannonSelector == 0)
+	{
+	    g.drawImage (img [0], xOfCannon [1], yOfCannon [1], null);
+	    g.drawImage (img [0], xOfCannon [2], yOfCannon [2], null);
+	    g.drawImage (img [0], xOfCannon [3], yOfCannon [3], null);
+	    g.drawImage (img [0], xOfCannon [4], yOfCannon [4], null);
+	    g.drawImage (img [0], xOfCannon [5], yOfCannon [5], null);
+	    drawCannon (xOfCannon [0], yOfCannon [0], 200, g);
+	}
+	else if (cannonSelector == 1)
+	{
+	    g.drawImage (img [0], xOfCannon [0], yOfCannon [0], null);
+	    g.drawImage (img [0], xOfCannon [2], yOfCannon [2], null);
+	    g.drawImage (img [0], xOfCannon [3], yOfCannon [3], null);
+	    g.drawImage (img [0], xOfCannon [4], yOfCannon [4], null);
+	    g.drawImage (img [0], xOfCannon [5], yOfCannon [5], null);
+	    drawCannon (xOfCannon [1], yOfCannon [1], 200, g);
+	}
+	else if (cannonSelector == 2)
+	{
+	    g.drawImage (img [0], xOfCannon [0], yOfCannon [0], null);
+	    g.drawImage (img [0], xOfCannon [1], yOfCannon [1], null);
+	    g.drawImage (img [0], xOfCannon [3], yOfCannon [3], null);
+	    g.drawImage (img [0], xOfCannon [4], yOfCannon [4], null);
+	    g.drawImage (img [0], xOfCannon [5], yOfCannon [5], null);
+	    drawCannon (xOfCannon [2], yOfCannon [2], 200, g);
+	}
+	else if (cannonSelector == 3)
+	{
+	    g.drawImage (img [0], xOfCannon [0], yOfCannon [0], null);
+	    g.drawImage (img [0], xOfCannon [1], yOfCannon [1], null);
+	    g.drawImage (img [0], xOfCannon [2], yOfCannon [2], null);
+	    g.drawImage (img [0], xOfCannon [4], yOfCannon [4], null);
+	    g.drawImage (img [0], xOfCannon [5], yOfCannon [5], null);
+	    drawCannon (xOfCannon [3], yOfCannon [3], 200, g);
+	}
+	else if (cannonSelector == 4)
+	{
+	    g.drawImage (img [0], xOfCannon [0], yOfCannon [0], null);
+	    g.drawImage (img [0], xOfCannon [1], yOfCannon [1], null);
+	    g.drawImage (img [0], xOfCannon [2], yOfCannon [2], null);
+	    g.drawImage (img [0], xOfCannon [3], yOfCannon [3], null);
+	    g.drawImage (img [0], xOfCannon [5], yOfCannon [5], null);
+	    drawCannon (xOfCannon [4], yOfCannon [4], 200, g);
+	}
+	else if (cannonSelector == 5)
+	{
+	    g.drawImage (img [0], xOfCannon [1], yOfCannon [1], null);
+	    g.drawImage (img [0], xOfCannon [2], yOfCannon [2], null);
+	    g.drawImage (img [0], xOfCannon [3], yOfCannon [3], null);
+	    g.drawImage (img [0], xOfCannon [4], yOfCannon [4], null);
+	    g.drawImage (img [0], xOfCannon [0], yOfCannon [0], null);
+	    drawCannon (xOfCannon [5], yOfCannon [5], 200, g);
+	}
+	if (ifShoot)
+	{
+	    g.setColor (new Color (152, 218, 255));
+	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
+	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
+	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, g);
+	    ifShoot = false;
+	}
+
+	if (failedLevel)
+	{
+	    failScreen (g);
+	}
+	//drawObstacle (g, 980, 200);
 	repaint ();
     }
-
 
     public void levelBackground (Graphics g)
     {
@@ -577,11 +664,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void drawCannon (int xCannon, int yCannon, int delayTime, Graphics g)
     {
 	Color filler = new Color (152, 218, 255);
-	g.drawImage (img [frameCounter], xCannon, yCannon, null);
-	delay (delayTime - 0);
+
 
 	if (!ifShoot)
 	{
+	    g.drawImage (img [frameCounter], xCannon, yCannon, null);
+	    delay (delayTime - 0);
 	    if (keyCode != 32)
 	    {
 		g.setColor (filler);
@@ -613,6 +701,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	int[] dxValues = {0, 1, 1, 1, 0, -1, -1, -1};
 	int[] dyValues = { - 1, -1, 0, 1, 1, 1, 0, -1};
+	int delayTime = 0;
 	boolean ifFailed = false, ifItemHit = false;
 
 	while (ifTravelled == false)
@@ -626,9 +715,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillOval (x, y, 50, 50);
 	    for (int i = 0 ; i < xCannons.length ; i++)
 	    {
-		if (x == xCannons [i]) //&& x < xCannons[i] + 200)
+		if (x == xCannons [i]+75) //&& x < xCannons[i] + 200)
 		{
-		    if (y < yCannons [i] + 200 && y > yCannons [i] - 50)
+		    if (y == yCannons[i] + 75)
 		    {
 			valueReset ();
 			cannonSelector = i;
@@ -637,13 +726,14 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 		    }
 		}
+		
 	    }
 
 	    for (int j = 0 ; j < xStars.length ; j++)
 	    {
 		if (x == xStars [j]) //x > xStars [j] - 25 && x < xStars[j] + 25)
 		{
-		    if (y < yStars [j] + 25 && y > yStars [j] - 50)
+		    if (y < yStars [j] + 25 && y > yStars [j] - 25)
 		    {
 			starCounter++;
 			ifHit = j + 1;
@@ -657,6 +747,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 		break;
 	    }
+	    
 	    if (x > 1040)
 	    {
 		if (y >= 310 && y <= 390)
@@ -793,5 +884,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	repaint ();
     }
 }
+
+
 
 
