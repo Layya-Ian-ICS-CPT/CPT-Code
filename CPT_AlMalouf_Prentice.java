@@ -258,7 +258,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] xOfStar = {330, 610, 890};
 	int[] yOfStar = {325, 325, 325};
 	int[] xOfCannon = {50}, yOfCannon = {250};
-	int[] fillerOne = {0}, fillerTwo = {0};
+	int[] fillerOne = {}
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
@@ -294,7 +294,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillRect (50, 250, 200, 200);
 	    g.drawImage (img [frameCounter], 50, 250, null);
 	    cannonSelector++;
-	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, fillerOne, fillerTwo, g);
+	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, fillerOne, fillerOne, g);
 
 	}
 	if (failedLevel)
@@ -322,7 +322,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	g.setColor (Color.black);
 	g.fillRect (400, 270, 60, 200);
-	yOfObstacle [1] = drawObstacle (g, 850, yOfObstacle[1]);
 	drawTarget (g);
 	if (ifHit == 0)
 	{
@@ -468,7 +467,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
 	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
-	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, g);
+	    //failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, g);
 	    //ifShoot = false;
 	}
 
@@ -583,7 +582,7 @@ public void levelFour (Graphics g)
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
 	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
-	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, g);
+	    //failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, g);
 	    //ifShoot = false;
 	}
 
@@ -634,19 +633,18 @@ public void levelFour (Graphics g)
    public int drawObstacle (Graphics g, int xObstacle, int yObstacle)
     {
 
-	int dy = 1;
+	int dyObstacle = 1;
 
 	g.setColor (new Color (152, 218, 255));
 	g.fillRect (xObstacle, yObstacle, 50, 100);
-	delay (5);
 	g.setColor (Color.black);
 	g.fillRect (xObstacle, yObstacle, 50, 100);
 	
 	
-	yObstacle += dy;
+	yObstacle += dyObstacle;
 	if (yObstacle > 540 || yObstacle < 100)
 	{
-	    dy = -dy;
+	    dyObstacle = -dyObstacle;
 	}
 	return yObstacle;
     }
@@ -710,8 +708,8 @@ public void levelFour (Graphics g)
 		ifShoot = true;
 
 	    }
-	    x = xCannon + 75;
-	    y = yCannon + 75;
+	    x = xCannon;
+	    y = yCannon;
 
 	}
     }
@@ -721,8 +719,22 @@ public void levelFour (Graphics g)
     {
 	int[] dxValues = {0, 1, 1, 1, 0, -1, -1, -1};
 	int[] dyValues = { - 1, -1, 0, 1, 1, 1, 0, -1};
+	int[] startxLocation = {75, 200, 200, 200, 75, -50, -50, -50};
+	int[] startyLocation = {-50, -50, 75, 150, 150, 150, 75, -50};
 	boolean ifFailed = false, ifItemHit = false;
-
+	
+	for (int q = 0; q < xCannons.length; q++)
+	{
+	    if (x == xCannons[q])
+	    {
+		if(y == yCannons[q])
+		{
+		    x += startxLocation[frameCounter];
+		    y += startyLocation[frameCounter];
+		}
+	    }
+	}
+	
 	while (ifTravelled == false)
 	{
 	    x += dxValues [frameCounter];
@@ -730,7 +742,7 @@ public void levelFour (Graphics g)
 	    g.setColor (Color.black);
 	    g.fillOval (x, y, 50, 50);
 	    
-	    delay (2);
+	    delay (4);
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillOval (x, y, 50, 50);
 	    for (int i = 0 ; i < xCannons.length ; i++)
@@ -765,9 +777,10 @@ public void levelFour (Graphics g)
 	    }
 	    for (int m = 0 ; m < yObstacles.length ; m++)
 	    {
+		yObstacles[m] = drawObstacle (g, xObstacles[m], yObstacles[m]);
 		if (x > xObstacles [m] && x < xObstacles [m] + 50)
 		{
-		    yObstacles[m] = drawObstacle (g, xObstacles[m], yObstacles[m]);
+		    
 		    if (y > yObstacles [m] && y < yObstacles [m] + 100)
 		    {
 			ifFailed = true;
