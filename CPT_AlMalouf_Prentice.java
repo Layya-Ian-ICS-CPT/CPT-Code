@@ -917,7 +917,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	{
 	    x += dxValues [frameCounter];
 	    y += dyValues [frameCounter];
-	    g.setColor (Color.black);
+	    g.setColor (new Color (255, 255, 153));
 	    g.fillOval (x, y, 50, 50);
 
 	    delay (4);
