@@ -9,11 +9,14 @@ import java.net.URL;
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
 
-    int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0, starCounter = 0, resetCounter = 0, ifHit = 0, pastStars = 0, totalStars = 0;
+    int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0, starCounter = 0, resetCounter = 0;
+    int ifHit = 0;
+    int pastStars = 0, totalStars = 0, numLives = 3, numFails = 0;
     Button menuStart;
     boolean ifShoot = false, ifTravelled = false;
     BufferedImage[] img = new BufferedImage [8];
     Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 20);
+    Font birdTalk = new Font ("verdana", Font.BOLD, 15);
 
     public void init ()
     {
@@ -42,6 +45,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		cannonSelector = 0;
 		ifHit = 0;
+		numLives = 3;
 		starCounter = 0;
 		resetCounter++;
 	    }
@@ -61,7 +65,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 		valueReset ();
 		cannonSelector = 0;
+		numFails = 0;
 		ifHit = 0;
+		numLives = 3;
 		starCounter = 0;
 		resetCounter++;
 	    }
@@ -79,6 +85,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		cannonSelector = 0;
 		ifHit = 0;
+		numLives = 3;
+		numFails = 0;
 		starCounter = 0;
 		resetCounter++;
 	    }
@@ -95,7 +103,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 		valueReset ();
 		cannonSelector = 0;
-		ifHit = 0;                
+		ifHit = 0;
+		numFails = 0;
+		numLives = 3;
 		starCounter = 0;
 		resetCounter++;
 	    }
@@ -128,13 +138,22 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillRect (130, 420, 100, 30);
 	g.fillRect (170, 360, 15, 80);
 
+	g.setColor (Color.white);
+	g.fillRect (740, 650, 270, 50);
+	g.setColor (Color.black);
+	Font birdTalk = new Font ("verdana", Font.BOLD, 15);
+	g.setFont (birdTalk);
+	g.drawString ("Tweet, tweet!", 810, 670);
+	g.drawString ("Click anywhere on the screen!", 755, 695);
+	drawBird (g);
+
 	//this section contains all the draw string methods that print the game title and others
-	Font newFont = new Font ("verdana", Font.BOLD, 100);
+	Font newFont = new Font ("verdana", Font.BOLD, 90);
 	g.setFont (newFont);
-	g.setColor (Color.red);
-	g.drawString ("Cannon Launch", 240, 400);
-	Font newFont2 = new Font ("verdana", Font.PLAIN, 30);
-	g.setFont (newFont2);
+	g.setColor (new Color (178, 34, 34));
+	g.drawString ("CANNON LAUNCH", 240, 400);
+	Font newFont3 = new Font ("verdana", Font.PLAIN, 30);
+	g.setFont (newFont3);
 	g.setColor (Color.black);
 	g.drawString ("Layya Al Malouf & Ian Prentice", 50, 750);
 	g.drawString ("ICS 3U1 CPT", 50, 800);
@@ -160,11 +179,54 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
     public void starsCollected (Graphics g)
     {
-	Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 20);
 	g.setFont (starFont);
 	g.setColor (Color.black);
-	g.drawString ("Stars Collected: " + starCounter, 0, 50);
+	g.drawString ("Stars Collected: " + starCounter, 990, 50);
 	totalStars += starCounter;
+    }
+
+
+    public void livesRemaining (Graphics g)
+    {
+	g.setFont (starFont);
+	g.setColor (Color.black);
+	g.drawString ("Lives Remaining: " + numLives, 980, 80);
+    }
+
+
+    public void drawBird (Graphics g)
+    {
+	int[] beakX = {1090, 1105, 1120, 1105};
+	int[] beakY = {730, 720, 730, 745};
+
+	g.setColor (new Color (190, 0, 190));
+	g.fillOval (1035, 705, 20, 50);
+	g.fillOval (1155, 705, 20, 50);
+
+	g.setColor (new Color (139, 0, 130));
+	g.fillOval (1042, 645, 125, 130);
+
+	g.setColor (Color.white);
+	g.fillOval (1110, 680, 35, 40);
+	g.fillOval (1060, 680, 35, 40);
+
+	g.setColor (new Color (0, 191, 255));
+	g.fillOval (1115, 690, 25, 25);
+	g.fillOval (1065, 690, 25, 25);
+
+	g.setColor (Color.black);
+	g.fillOval (1119, 695, 16, 16);
+	g.fillOval (1069, 695, 16, 16);
+
+	g.setColor (Color.white);
+	g.fillOval (1128, 693, 8, 8);
+	g.fillOval (1078, 693, 8, 8);
+
+	g.setColor (Color.orange);
+	g.fillPolygon (beakX, beakY, 4);
+	g.fillOval (1119, 770, 20, 10);
+	g.fillOval (1069, 770, 20, 10);
+
     }
 
 
@@ -172,11 +234,13 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	int[] pointx = {250, 300, 200, 130};
 	int[] pointy = {200, 230, 400, 330};
-	//int[] xOfStar = {330, 610, 890};
-	//int[] yOfStar = {325, 325, 325};
+
+	totalStars = pastStars + starCounter;
 
 	g.setColor (new Color (255, 204, 229));
 	g.fillRect (0, 0, 1200, 800);
+	drawBird (g);
+	drawLevelStars (g);
 
 	Font levelFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 80);
 	g.setFont (levelFont);
@@ -194,9 +258,16 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	Font levelFont4 = new Font ("verdana", Font.PLAIN, 25);
 	g.setFont (levelFont4);
-	g.drawString ("Press the left arrow key to retry the level", 345, 700);
-	g.drawString ("Press the right arrow key to go to the next level", 300, 750);
-	
+	g.drawString ("Press the left arrow key to retry the level", 100, 700);
+	g.drawString ("Press the right arrow key to go to the next level", 100, 750);
+
+	g.setColor (Color.white);
+	g.fillRect (740, 650, 285, 50);
+	g.setColor (Color.black);
+	g.setFont (birdTalk);
+	g.drawString ("Nice Job!", 830, 670);
+	g.drawString ("Retry levels to collect more coins!", 745, 695);
+
 	g.setColor (Color.black);
 	g.fillPolygon (pointx, pointy, 4);
 	g.fillOval (115, 315, 100, 100);
@@ -217,6 +288,13 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 
     }
+
+
+    public void drawLevelStars (Graphics g)
+    {
+
+    }
+
 
 
     public void endGame (Graphics g)
@@ -243,11 +321,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setFont (newFont);
 	g.setColor (Color.red);
 	g.drawString ("Game Over!", 240, 400);
-	Font newFont2 = new Font ("verdana", Font.PLAIN, 30);
-	g.setFont (newFont2);
+	Font birdTalk = new Font ("verdana", Font.PLAIN, 30);
+	g.setFont (birdTalk);
 	g.setColor (Color.black);
 	g.drawString ("Congratulations! You have completed all the levels!", 250, 750);
 	g.drawString ("Stay tuned for more levels to come!", 100, 800);
+	drawBird (g);
 
 	while (true)
 	{
@@ -277,9 +356,17 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
-	g.drawString ("Level One", 0, 20);
-	g.drawString ("Press the space bar to shoot", 450, 50);
+	g.drawString ("Level One", 1050, 20);
+
+	g.setColor (Color.white);
+	g.fillRect (740, 650, 270, 55);
+	g.setColor (Color.black);
+	g.setFont (birdTalk);
+	g.drawString ("Welcome friend!", 810, 670);
+	g.drawString ("Press the spacebar to shoot!", 755, 695);
+
 	starsCollected (g);
+	livesRemaining (g);
 	drawTarget (g);
 	boolean failedLevel = false;
 
@@ -315,7 +402,21 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (failedLevel)
 	{
+	    numFails++;
+	    numLives--;
 	    failScreen (g);
+	    if (numFails == 3)
+	    {
+		menuSelect = 1;
+		g.setColor (Color.white);
+		g.fillRect (740, 650, 270, 55);
+		g.setColor (Color.black);
+		g.setFont (birdTalk);
+		g.drawString ("Oh no! I only have 3 lives!", 780, 675);
+		g.drawString ("Back to level one :(", 800, 695);
+		delay (2500);
+		menuSelect = 1;
+	    }
 	}
 	repaint ();
     }
@@ -330,11 +431,19 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] yOfStar = {200, 200, 325};
 	int[] xOfObstacle = {350, 800};
 	int[] yOfObstacle = {220, 150};
+
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
-	g.drawString ("Level Two", 0, 20);
+	g.drawString ("Level Two", 1050, 20);
+	g.setColor (Color.white);
+	g.fillRect (740, 650, 270, 55);
+	g.setColor (Color.black);
+	g.setFont (birdTalk);
+	g.drawString ("Watch out for the obstacles!", 770, 675);
+	g.drawString ("If you hit one you lose a life!", 765, 695);
 	starsCollected (g);
+	livesRemaining (g);
 
 	g.setColor (Color.black);
 	g.fillRect (400, 270, 60, 200);
@@ -380,14 +489,26 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
 	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
 	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, xOfObstacle, yOfObstacle, g);
-	    //ifShoot = false;
-	}
+       }
 
 	if (failedLevel)
 	{
+	    numFails++;
+	    numLives--;
 	    failScreen (g);
+	    if (numFails == 3)
+	    {
+		menuSelect = 1;
+		g.setColor (Color.white);
+		g.fillRect (740, 650, 270, 55);
+		g.setColor (Color.black);
+		g.setFont (birdTalk);
+	       g.drawString ("Oh no! I only have 3 lives!", 780, 675);
+		g.drawString ("Back to level one :(", 800, 695);
+		delay (2500);
+		menuSelect = 1;
+	    }
 	}
-
 
 	repaint ();
     }
@@ -407,8 +528,15 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
-	g.drawString ("Level Three", 0, 20);
+	g.drawString ("Level Three", 1050, 20);
+	g.setColor (Color.white);
+	g.fillRect (740, 650, 270, 55);
+	g.setColor (Color.black);
+	g.setFont (birdTalk);
+	g.drawString ("Watch out for the obstacles!", 770, 675);
+	g.drawString ("This level is tricky!", 765, 695);
 	starsCollected (g);
+	livesRemaining (g);
 
 	g.setColor (Color.black);
 	g.fillRect (700, 100, 50, 100);
@@ -486,12 +614,25 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
 	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
 	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, xOfObstacle, yOfObstacle, g);
-	    //ifShoot = false;
 	}
 
 	if (failedLevel)
 	{
+	    numFails++;
+	    numLives--;
 	    failScreen (g);
+	    if (numFails == 3)
+	    {
+		menuSelect = 1;
+		g.setColor (Color.white);
+		g.fillRect (740, 650, 270, 55);
+		g.setColor (Color.black);
+		g.setFont (birdTalk);
+	       g.drawString ("Oh no! I only have 3 lives!", 780, 675);
+		g.drawString ("Back to level one :(", 800, 695);
+		delay (2500);
+		menuSelect = 1;
+	    }
 	}
 	repaint ();
     }
@@ -504,24 +645,27 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] yOfCannon = {10, 250, 490, 10, 490, 250};
 	int[] xOfStar = {555, 690, 1000};
 	int[] yOfStar = {325, 445, 325};
-	int[] xOfObstacle = {250, 250, 250, 250};
-	int[] yOfObstacle = {0, 100, 500, 600};
+	int[] xOfObstacle = {200, 200, 200, 200};
+	int[] yOfObstacle = {0, 50, 450, 550};
 
 	levelBackground (g);
 	g.setFont (starFont);
 	g.setColor (Color.black);
-	g.drawString ("Level Four", 0, 20);
+	g.drawString ("Level Four", 1050, 20);
+	g.setColor (Color.white);
+	g.fillRect (740, 650, 290, 55);
+	g.setColor (Color.black);
+	g.setFont (birdTalk);
+	g.drawString ("Wow! You made it to the last level!", 750, 675);
+	g.drawString ("You must be really good!", 785, 695);
 	starsCollected (g);
+	livesRemaining (g);
 
 	g.setColor (Color.black);
 	g.fillRect (250, 0, 50, 100);
 	g.fillRect (250, 100, 50, 100);
 	g.fillRect (250, 500, 50, 100);
 	g.fillRect (250, 600, 50, 100);
-	//dw about these
-	//g.fillRect (385, 200, 50, 100);
-	//g.fillRect (920, 200, 50, 100);
-	//g.fillRect (630, 200, 50, 100);
 
 	//drawObstacle (g, 365, 200);
 	//drawObstacle (g, 900, 200);
@@ -605,12 +749,24 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillRect (xOfCannon [cannonSelector], yOfCannon [cannonSelector], 200, 200);
 	    g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
 	    failedLevel = projectile (xOfStar, yOfStar, xOfCannon, yOfCannon, xOfObstacle, yOfObstacle, g);
-	    //ifShoot = false;
 	}
 
 	if (failedLevel)
 	{
+	    numFails++;
+	    numLives--;
 	    failScreen (g);
+	    if (numFails == 3)
+	    {
+		menuSelect = 1;
+		g.setColor (Color.white);
+		g.fillRect (740, 650, 270, 55);
+		g.setColor (Color.black);
+		g.setFont (birdTalk);
+	       g.drawString ("Oh no! I only have 3 lives!", 780, 675);
+		g.drawString ("Back to level one :(", 800, 695);
+		delay (2500);
+	    }
 	}
 	repaint ();
     }
@@ -626,6 +782,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillArc (700, 620, 700, 450, 0, 180);
 	g.setColor (new Color (0, 204, 0));
 	g.fillRect (0, 700, 1200, 100);
+	drawBird (g);
 
     }
 
@@ -768,7 +925,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    g.fillOval (x, y, 50, 50);
 	    for (int i = 0 ; i < xCannons.length ; i++)
 	    {
-		if (x == xCannons [i] + 75) //&& x < xCannons[i] + 200)
+		if (x == xCannons [i] + 75)
 		{
 		    if (y == yCannons [i] + 75)
 		    {
@@ -784,7 +941,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	    for (int j = 0 ; j < xStars.length ; j++)
 	    {
-		if (x == xStars [j]) //x > xStars [j] - 25 && x < xStars[j] + 25)
+		if (x == xStars [j])
 		{
 		    if (y > yStars [j] - 25 && y < yStars [j] + 25)
 		    {
@@ -798,7 +955,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    }
 	    for (int m = 0 ; m < yObstacles.length ; m++)
 	    {
-		//yObstacles[m] = drawObstacle (g, xObstacles[m], yObstacles[m]);
 		if (x > xObstacles [m] && x < xObstacles [m] + 50)
 		{
 
@@ -856,11 +1012,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     public void failScreen (Graphics g)
     {
 	g.setColor (Color.white);
-	g.fillRect (400, 350, 400, 100);
+	g.fillRect (740, 650, 270, 55);
 	g.setColor (Color.black);
-	g.setFont (new Font ("verdana", Font.BOLD, 30));
-	g.drawString ("YOU HAVE FAILED", 450, 410);
-	delay (1000);
+	g.setFont (birdTalk);
+	g.drawString ("Oops! You failed!", 800, 675);
+	g.drawString ("The level is going to restart!", 765, 695);
+	delay (1500);
 	cannonSelector = 0;
 	frameCounter = 0;
 	x = 0;
