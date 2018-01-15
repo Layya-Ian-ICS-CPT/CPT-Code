@@ -1,3 +1,6 @@
+/* "Egg-scape" CPT
+    Programmed by Layya Al Malouf and Ian Prentice from December to January 16 2017
+    This program involves a series of cannons containing a bird egg, which allows the user to shoot the egg from cannon to cannon with the goal of getting it to the target without hitting any obsgacles*/
 import java.awt.event.*;
 import java.applet.*;
 import java.awt.*;
@@ -8,6 +11,7 @@ import java.net.URL;
 
 public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseListener
 {
+    //global variable declarations
     int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0, starCounter = 0, resetCounter = 0;
     int ifHit = 0;
     int pastStars = 0, totalStars = 0, numLives, numOfdy;
@@ -18,6 +22,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     BufferedImage[] img = new BufferedImage [8];
     Font starFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 20);
     Font birdTalk = new Font ("verdana", Font.BOLD, 15);
+    
     public void init ()
     {
 	getImage ();
@@ -29,7 +34,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	addKeyListener (this);
 	addMouseListener (this);
 	setFocusable (true);
-    }
+    }//end of init method
 
 
     public void paint (Graphics g)
@@ -283,11 +288,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	starsCollected (g);
 	livesRemaining (g);
-	
-	drawObstacle (g, 800, 150);
+
+	drawObstacle (g, 900, 150);
 	g.setColor (Color.black);
-	g.fillRect (350, 220, 50, 200);
-	//g.fillRect (400, 270, 60, 200);
+	g.fillRect (400, 270, 60, 200);
 
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
@@ -610,7 +614,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    pastStars += starCounter;
 	    menuSelect++;
 	}
-    }//yuh
+    } //yuh
 
 
     public void endGame (Graphics g)
@@ -766,7 +770,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	{
 	    dyObstacle = -dyObstacle;
 	}
-	
+
     }
 
 
