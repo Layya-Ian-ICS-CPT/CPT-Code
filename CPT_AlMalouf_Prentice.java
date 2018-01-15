@@ -607,7 +607,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    pastStars += starCounter;
 	    menuSelect++;
 	}
-    }
+    }//yuh
 
 
     public void endGame (Graphics g)
