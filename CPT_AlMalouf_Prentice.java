@@ -10,7 +10,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 {
     int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0, starCounter = 0, resetCounter = 0;
     int ifHit = 0;
-    int pastStars = 0, totalStars = 0, numLives, numFails;
+    int pastStars = 0, totalStars = 0, numLives;
     int[] xOfStar = new int [3];
     int[] yOfStar = new int [3];
     Button menuStart;
@@ -37,6 +37,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	if (menuSelect == 0)
 	{
 	    makeTitleScreen (g);
+	    numLives = 3;
 	}
 	if (menuSelect == 1)
 	{
@@ -45,8 +46,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		cannonSelector = 0;
 		ifHit = 0;
-		numLives = 3;
-		numFails = 0;
 		starCounter = 0;
 		xOfStar [0] = 330;
 		xOfStar [1] = 610;
@@ -70,9 +69,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    {
 		valueReset ();
 		cannonSelector = 0;
-		numFails = 0;
+		//numFails = 0;
 		ifHit = 0;
-		numLives = 3;
+		//numLives = 3;
 		starCounter = 0;
 		xOfStar [0] = 280;
 		xOfStar [1] = 530;
@@ -95,8 +94,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		cannonSelector = 0;
 		ifHit = 0;
-		numLives = 3;
-		numFails = 0;
+		//numLives = 3;
+		//numFails = 0;
 		starCounter = 0;
 		xOfStar [0] = 450;
 		xOfStar [1] = 450;
@@ -119,8 +118,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		cannonSelector = 0;
 		ifHit = 0;
-		numFails = 0;
-		numLives = 3;
+		//numFails = 0;
+		//numLives = 3;
 		starCounter = 0;
 		xOfStar [0] = 555;
 		xOfStar [1] = 700;
@@ -240,10 +239,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (failedLevel)
 	{
-	    numFails++;
+	    //numFails++;
 	    numLives--;
 	    failScreen (g);
-	    if (numFails == 3)
+	    if (numLives == 0)
 	    {
 		g.setColor (Color.white);
 		g.fillRect (740, 650, 270, 55);
@@ -253,6 +252,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		g.drawString ("Back to level one :(", 800, 695);
 		delay (2500);
 		menuSelect = 1;
+		numLives = 3;
+		totalStars = 0;
+		resetCounter = 0;
 	    }
 	}
 	repaint ();
@@ -315,10 +317,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (failedLevel)
 	{
-	    numFails++;
+	    //numFails++;
 	    numLives--;
 	    failScreen (g);
-	    if (numFails == 3)
+	    if (numLives == 0)
 	    {
 		g.setColor (Color.white);
 		g.fillRect (740, 650, 270, 55);
@@ -329,6 +331,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		delay (2500);
 		menuSelect = 1;
 		numLives = 3;
+		totalStars = 0;
+		resetCounter = 0;
 	    }
 	}
 	repaint ();
@@ -415,10 +419,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (failedLevel)
 	{
-	    numFails++;
+	    //numFails++;
 	    numLives--;
 	    failScreen (g);
-	    if (numFails == 3)
+	    if (numLives == 0)
 	    {
 		g.setColor (Color.white);
 		g.fillRect (740, 650, 270, 55);
@@ -429,6 +433,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		delay (2500);
 		menuSelect = 1;
 		numLives = 3;
+		totalStars = 0;
+		resetCounter = 0;
 	    }
 	}
 	repaint ();
@@ -529,10 +535,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	}
 	if (failedLevel)
 	{
-	    numFails++;
+	    //numFails++;
 	    numLives--;
 	    failScreen (g);
-	    if (numFails == 3)
+	    if (numLives == 0)
 	    {
 		g.setColor (Color.white);
 		g.fillRect (740, 650, 270, 55);
@@ -543,6 +549,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		delay (2500);
 		menuSelect = 1;
 		numLives = 3;
+		totalStars = 0;
+		resetCounter = 0;
 	    }
 	}
 	repaint ();
@@ -591,12 +599,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	if (keyCode == 37)
 	{
 	    resetCounter--;
-	    starCounter = pastStars;
+	    //starCounter = pastStars;
 	    menuSelect--;
 	}
 	if (keyCode == 39)
 	{
-	    pastStars = starCounter;
+	    pastStars += starCounter;
 	    menuSelect++;
 	}
     }
