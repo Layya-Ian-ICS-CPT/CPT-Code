@@ -10,7 +10,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 {
     int keyCode = 0, menuSelect = 0, frameCounter = 0, x = 0, y = 0, cannonSelector = 0, starCounter = 0, resetCounter = 0;
     int ifHit = 0;
-    int pastStars = 0, totalStars = 0, numLives;
+    int pastStars = 0, totalStars = 0, numLives, numOfdy;
     int[] xOfStar = new int [3];
     int[] yOfStar = new int [3];
     Button menuStart;
@@ -46,6 +46,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		valueReset ();
 		cannonSelector = 0;
 		ifHit = 0;
+		numOfdy = 0;
 		starCounter = 0;
 		xOfStar [0] = 330;
 		xOfStar [1] = 610;
@@ -266,8 +267,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	boolean failedLevel = false;
 	int[] xOfCannon = {80, 330, 580};
 	int[] yOfCannon = {250, 0, 250};
-	int[] xOfObstacle = {350, 800};
-	int[] yOfObstacle = {220, 150};
+	int[] xOfObstacle = {350, 350, 800};
+	int[] yOfObstacle = {220, 320, 150};
 
 	levelBackground (g);
 	g.setFont (starFont);
@@ -282,9 +283,11 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	starsCollected (g);
 	livesRemaining (g);
-
+	
+	drawObstacle (g, 800, 150);
 	g.setColor (Color.black);
-	g.fillRect (400, 270, 60, 200);
+	g.fillRect (350, 220, 50, 200);
+	//g.fillRect (400, 270, 60, 200);
 
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
@@ -751,19 +754,19 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     }
 
 
-    public int drawObstacle (Graphics g, int xObstacle, int yObstacle)
+    public void drawObstacle (Graphics g, int xObstacle, int yObstacle)
     {
 	int dyObstacle = 1;
 	g.setColor (new Color (152, 218, 255));
 	g.fillRect (xObstacle, yObstacle, 50, 100);
 	g.setColor (Color.black);
 	g.fillRect (xObstacle, yObstacle, 50, 100);
-	yObstacle += dyObstacle;
+	yObstacle += numOfdy;
 	if (yObstacle > 540 || yObstacle < 100)
 	{
 	    dyObstacle = -dyObstacle;
 	}
-	return yObstacle;
+	
     }
 
 
