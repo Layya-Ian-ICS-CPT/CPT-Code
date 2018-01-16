@@ -476,10 +476,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	//intializing variables and arrays
 	boolean failedLevel = false;
-	int[] xOfCannon = {0, 0, 0, 480, 480, 720};
-	int[] yOfCannon = {10, 250, 490, 10, 490, 250};
-	int[] xOfObstacle = {250, 250, 365, 900, 580};
-	int[] yOfObstacle = {0, 500, 200, 200, 200};
+	int[] xOfCannon = {0, 0, 0, 430, 430, 720};
+	int[] yOfCannon = {10, 250, 490, 60, 440, 250};
+	int[] xOfObstacle = {250, 250, 365, 900, 630};
+	int[] yOfObstacle = {0, 500, 150, 150, 150};
 	int[] movingObstacle = {2, 3, 4};
 	
 	//draws level background
@@ -504,9 +504,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillRect (250, 500, 50, 150);
 	//g.fillRect (250, 600, 50, 100);
 	//draws moving obstacles
-	yOfObstacle [2] = drawObstacle (g, 365, 200);
-	yOfObstacle [3] = drawObstacle (g, 900, 200);
-	yOfObstacle [4] = drawObstacle (g, 580, 200);
+	yOfObstacle [2] = drawObstacle (g, 365, 150);
+	yOfObstacle [3] = drawObstacle (g, 900, 150);
+	yOfObstacle [4] = drawObstacle (g, 630, 150);
 	//draws the 3 stars
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
@@ -1060,9 +1060,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    //checks to see if obstacle was hit
 	    for (int m = 0 ; m < yObstacles.length ; m++)
 	    {
-		if (x + 50 > xObstacles [m] && x + 25 < xObstacles [m] + 50)
+		if (x + 25 > xObstacles [m] && x + 25 < xObstacles [m] + 50)
 		{
-		    if (y > yObstacles [m] - 25 && y + 25 < yObstacles [m] + 150)
+		    if (y +25> yObstacles [m] - 25 && y + 25 < yObstacles [m] + 175)
 		    {
 			ifFailed = true;
 			ifTravelled = true;
@@ -1098,7 +1098,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		ifTravelled = true;
 		break;
 	    } //end of else if
-	    else if (y > 750 || y < 0)
+	    else if (y > 650 || y < 0)
 	    {
 		ifFailed = true;
 		ifTravelled = true;
