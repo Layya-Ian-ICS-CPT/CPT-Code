@@ -181,7 +181,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillRect (620, 650, 420, 100);
 	g.setFont (birdTalk);
 	g.setColor (Color.black);
-	g.drawString ("Tweet, tweet!", 810, 670);
+	g.drawString ("Tweet, tweet!", 770, 670);
 	g.drawString ("This is my baby egg! I'm trusting you with it!", 635, 700);
 	g.drawString ("Make sure you get my baby safely to the target!", 630, 720);
 	g.drawString ("Try clicking anywhere on the screen!", 680, 745);
@@ -223,7 +223,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (Color.black);
 	g.drawString ("Level One", 1050, 20);
 	g.setColor (Color.white);
-	g.fillRect (740, 650, 270, 55);
+	g.fillRect (740, 650, 300, 55);
 	g.setColor (Color.black);
 	g.setFont (birdTalk);
 	g.drawString ("Welcome friend!", 810, 670);
@@ -366,7 +366,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	livesRemaining (g);
 	//birds speech and speech bubble
 	g.setColor (Color.white);
-	g.fillRect (740, 650, 270, 55);
+	g.fillRect (740, 650, 300, 55);
 	g.setColor (Color.black);
 	g.setFont (birdTalk);
 	g.drawString ("Watch out for the obstacles!", 770, 675);
@@ -478,7 +478,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	livesRemaining (g);
 	//draws bird speech bubble and text
 	g.setColor (Color.white);
-	g.fillRect (740, 650, 290, 55);
+	g.fillRect (740, 650, 300, 55);
 	g.setColor (Color.black);
 	g.setFont (birdTalk);
 	g.drawString ("Wow! You made it to the last level!", 750, 675);
@@ -763,7 +763,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	//speech bubble and text
 	g.setColor (Color.white);
-	g.fillRect (740, 650, 270, 55);
+	g.fillRect (740, 650, 300, 55);
 	g.setColor (Color.black);
 	g.setFont (birdTalk);
 	g.drawString ("Oops! You failed!", 800, 675);
@@ -781,7 +781,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     {
 	//draws bird speech bubble and texr
 	g.setColor (Color.white);
-	g.fillRect (740, 650, 290, 55);
+	g.fillRect (740, 650, 300, 55);
 	g.setColor (Color.black);
 	g.setFont (birdTalk);
 	g.drawString ("Oh no! I only have 3 lives!", 780, 675);
