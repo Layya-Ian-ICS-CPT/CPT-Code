@@ -1,7 +1,7 @@
 /* "Egg-scape" CPT
     Programmed by Layya Al Malouf and Ian Prentice from December to January 16 2017
-    This program involves a series of cannons containing a bird egg, which allows 
-    the user to shoot the egg from cannon to cannon with the goal of getting it 
+    This program involves a series of cannons containing a bird egg, which allows
+    the user to shoot the egg from cannon to cannon with the goal of getting it
     to the target without hitting any obstacles*/
 import java.awt.event.*;
 import java.applet.*;
@@ -46,6 +46,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    makeTitleScreen (g);
 	    numLives = 3;
 	} //end of opening screen if statement
+
 	if (menuSelector == 1) //level one
 	{
 	    if (resetCounter == 0)
@@ -59,15 +60,18 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		yOfStar [0] = 325;
 		yOfStar [1] = 325;
 		yOfStar [2] = 325;
+		//increases reset counter in order to avoid unnecessarily resetting values
 		resetCounter++;
 	    } //end of inner if statement
 	    remove (menuStart); //remove start button
 	    levelOne (g);
 	} //end of level one if statement
+
 	if (menuSelector == 2) //end of level screen
 	{
 	    endLevel (g);
 	} //end of end level screen if statement
+
 	if (menuSelector == 3) //level two
 	{
 	    remove (menuStart);
@@ -82,14 +86,17 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		yOfStar [0] = 200;
 		yOfStar [1] = 200;
 		yOfStar [2] = 325;
+		//increases reset counter in order to avoid unnecessarily resetting values
 		resetCounter++;
 	    }
 	    levelTwo (g);
 	} //end of level two if statement
+
 	if (menuSelector == 4) //end of level screen
 	{
 	    endLevel (g);
 	} //end of end level screen if statement
+
 	if (menuSelector == 5) //level three
 	{
 	    if (resetCounter == 2)
@@ -103,14 +110,17 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		yOfStar [0] = 200;
 		yOfStar [1] = 450;
 		yOfStar [2] = 325;
+		//increases reset counter in order to avoid unnecessarily resetting values
 		resetCounter++;
 	    }
 	    levelThree (g);
 	} //end of level three if statement
+
 	if (menuSelector == 6) //end of level
 	{
 	    endLevel (g);
 	} //end of end level screen if statement
+
 	if (menuSelector == 7) //level four
 	{
 	    if (resetCounter == 3)
@@ -124,10 +134,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		yOfStar [0] = 325;
 		yOfStar [1] = 430;
 		yOfStar [2] = 325;
+		//increases reset counter in order to avoid unnecessarily resetting values
 		resetCounter++;
 	    } //end  of level four if statement
 	    levelFour (g);
-	}
+	} //end of menuSelector7 if statement
+	
 	if (menuSelector == 8) //end of game screen
 	{
 	    endGame (g);
@@ -142,6 +154,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] pointyCannon = {200, 230, 400, 330};
 	int xTitle = 300, yTitle = 150, dx = 1, dy = -1;
 	char input;
+	
 	//background colour of the screen
 	g.setColor (new Color (249, 205, 213));
 	g.fillRect (0, 0, 1200, 800);
@@ -187,7 +200,8 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.drawString ("Try clicking anywhere on the screen!", 680, 745);
 	drawBirdBody (g);
 	birdWithEgg (g);
-	//draws the moving cannon everytime the mouse is pressed
+       
+	 //draws the moving cannon everytime the mouse is pressed
 	while (true)
 	{
 	    //draws the ball
@@ -228,11 +242,12 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setFont (birdTalk);
 	g.drawString ("Welcome friend!", 810, 670);
 	g.drawString ("Press the spacebar to shoot!", 755, 695);
+	
 	//draws the 3 stars
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
 	drawStar (g, xOfStar [2], yOfStar [2]);
-	
+
 
 	//each cannonSelector value represents a certain cannon
 	if (cannonSelector == 0) //first cannon
@@ -243,7 +258,6 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 
 	if (ifShoot) //if the spacebar is pressed
 	{
-	    //g.drawImage (img [frameCounter], xOfCannon [cannonSelector], yOfCannon [cannonSelector], null);
 	    //returns a boolean variable "true" - level passed or "false" - failed
 	    failedLevel = projectile (fillerTwo, xOfCannon, yOfCannon, fillerOne, fillerOne, g);
 	    //no obstacle values so the filler array act as place holders
@@ -257,10 +271,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    if (numLives == 0)
 	    {
 		//speech and speech bubble of the bird
-		failGame(g);
+		failGame (g);
 	    } //end of numLives if statement
 	} //end of failedLevel if statement
-
 
 	repaint ();
     } //end of levelOne method
@@ -275,6 +288,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] xOfObstacle = {400, 900};
 	int[] yOfObstacle = {300, 150};
 	int[] movingObstacle = {1};
+	
 	//draws level background
 	levelBackground (g);
 	//draws all the text that remains on the screen for the entire level
@@ -299,7 +313,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
 	drawStar (g, xOfStar [2], yOfStar [2]);
-	
+
 
 	if (cannonSelector == 0) //runs the first cannon
 	{
@@ -331,7 +345,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    //returns a boolean variable "true" - level passed or "false" - failed
 	    failedLevel = projectile (movingObstacle, xOfCannon, yOfCannon, xOfObstacle, yOfObstacle, g);
 	} //end of ifShoot if statement
-	
+
 	if (failedLevel)
 	{
 	    //if the level is failed the number of lives is reduced by one
@@ -340,7 +354,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    // if the number of lives reaches zero
 	    if (numLives == 0)
 	    {
-		failGame(g);
+		failGame (g);
 	    } //end of numLives if statement
 	} //end of failedLevel if statement
 	repaint ();
@@ -354,8 +368,9 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] xOfCannon = {0, 250, 250, 500, 775};
 	int[] yOfCannon = {250, 0, 500, 250, 250};
 	int[] xOfObstacle = {325, 700, 700, 1030};
-	int[] yOfObstacle = {200, 50, 360, 200};
+	int[] yOfObstacle = {250, 50, 410, 200};
 	int[] movingObstacle = {3};
+	
 	//draws level background
 	levelBackground (g);
 	//draws all the text that remains on the screen for the entire level
@@ -373,18 +388,16 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.drawString ("This level is tricky!", 765, 695);
 	//draws stationary obstacles
 	g.setColor (Color.black);
-	g.fillRect (700, 100, 50, 150);
-	//g.fillRect (700, 200, 50, 100);
+	g.fillRect (700, 50, 50, 150);
 	g.fillRect (700, 410, 50, 150);
-	//g.fillRect (700, 510, 50, 100);
 	g.fillRect (325, 250, 50, 150);
-	//g.fillRect (325, 350, 50, 100);
 	//draws moving obstacles
-	yOfObstacle[3] = drawObstacle (g, 1030, 200);
+	yOfObstacle [3] = drawObstacle (g, 1030, 200);
 	//draws the 3 stars
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
 	drawStar (g, xOfStar [2], yOfStar [2]);
+	
 	//each cannonSelector value represents a certain cannon
 	if (cannonSelector == 0) //runs the first cannon
 	{
@@ -452,7 +465,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    // if the number of lives reaches zero
 	    if (numLives == 0)
 	    {
-		failGame(g);
+		failGame (g);
 	    } //end of numLives if statement
 	} //end of failedLevel if statement
 	repaint ();
@@ -465,9 +478,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	boolean failedLevel = false;
 	int[] xOfCannon = {0, 0, 0, 480, 480, 720};
 	int[] yOfCannon = {10, 250, 490, 10, 490, 250};
-	int[] xOfObstacle = {200, 200, 365, 900, 580};
-	int[] yOfObstacle = {0, 450, 200, 200, 200};
+	int[] xOfObstacle = {250, 250, 365, 900, 580};
+	int[] yOfObstacle = {0, 500, 200, 200, 200};
 	int[] movingObstacle = {2, 3, 4};
+	
 	//draws level background
 	levelBackground (g);
 	//draws all the text that remains on the screen for the entire level
@@ -497,6 +511,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	drawStar (g, xOfStar [0], yOfStar [0]);
 	drawStar (g, xOfStar [1], yOfStar [1]);
 	drawStar (g, xOfStar [2], yOfStar [2]);
+	
 	if (cannonSelector == 0)
 	{
 	    //draw the image of the stationary cannons (2,3,4,5,6)
@@ -563,6 +578,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    //begins the rotations of the sixth cannon
 	    drawCannon (xOfCannon [5], yOfCannon [5], 200, g);
 	} //end of cannonSelector5 if statement
+	
 	if (ifShoot) //if the spacebar is pressed
 	{
 	    //if the space bar is pressed it stops the iterations of the cannon images
@@ -578,7 +594,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    // if the number of lives reaches zero
 	    if (numLives == 0)
 	    {
-		failGame(g);
+		failGame (g);
 	    } //end of numLives if statement
 	} //end of failedLevel if statement
 	repaint ();
@@ -591,6 +607,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	//initializes coordinates of the polygon that draws the cannon
 	int[] pointx = {250, 300, 200, 130};
 	int[] pointy = {200, 230, 400, 330};
+	
 	//calculates the total stars collected from current and previous levels
 	totalStars = pastStars + starCounter;
 	//background color
@@ -600,6 +617,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	birdHappy (g);
 	drawBirdBody (g);
 	drawLevelStars (g);
+	
 	//draws all the text for the end of level screen
 	Font levelFont = new Font ("verdana", Font.BOLD + Font.ITALIC, 80);
 	g.setFont (levelFont);
@@ -628,6 +646,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (Color.yellow);
 	g.fillRect (130, 420, 100, 30);
 	g.fillRect (170, 360, 15, 80);
+	
 	//if the left arrow key is clicked it takes to back to the previous menuSelector value
 	if (keyCode == 37)
 	{
@@ -651,9 +670,14 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	int[] pointy = {200, 230, 400, 330};
 	int xTitle = 300, yTitle = 150;
 	char input;
+
+	//updates total stars
+	totalStars = pastStars + starCounter;
+
 	//background colour
 	g.setColor (new Color (249, 205, 213));
 	g.fillRect (0, 0, 1200, 800);
+
 	//draws cannon
 	g.setColor (Color.black);
 	g.fillPolygon (pointx, pointy, 4);
@@ -661,6 +685,7 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.setColor (Color.yellow);
 	g.fillRect (130, 420, 100, 30);
 	g.fillRect (170, 360, 15, 80);
+
 	//draws clouds
 	g.setColor (Color.white);
 	g.fillOval (120, 120, 150, 60);
@@ -672,24 +697,32 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	g.fillOval (870, 90, 150, 60);
 	g.fillOval (890, 70, 60, 100);
 	g.fillOval (940, 70, 60, 100);
+
 	//contains all the draw string methods that print the game title and other text
 	Font newFont = new Font ("VT323", Font.BOLD, 120);
 	g.setFont (newFont);
 	g.setColor (new Color (178, 34, 34));
 	g.drawString ("GAME OVER!", 270, 400);
+
 	//draws bird speech and text
 	g.setColor (Color.white);
-	g.fillRect (700, 650, 350, 55);
+	g.fillRect (650, 650, 400, 55);
 	g.setColor (Color.black);
 	g.setFont (birdTalk);
-	g.drawString ("Thank you for returning my baby safely to me!", 705, 675);
+	g.drawString ("Thank you for returning my baby safely to me!", 655, 680);
 	Font levelFont3 = new Font ("verdana", Font.BOLD + Font.ITALIC, 30);
 	g.setFont (levelFont3);
-	g.drawString ("Congratulations! You have completed all the levels!", 250, 450);
-	g.drawString ("Stay tuned for more levels to come!", 400, 550);
+
+	//prints the total number of stars collect in the levcel
+	g.drawString (" Total Stars Collected: " + totalStars, 370, 450);
+
+	g.drawString ("Congratulations! You have completed all the levels!", 175, 560);
+	g.drawString ("Stay tuned for more levels to come!", 300, 600);
+
 	//draws bird with its egg in hands
 	drawBirdBody (g);
 	birdWithEgg (g);
+
 	while (true) //infinite loop
 	{
 	    //draws the projectile coming out of the ball
@@ -829,30 +862,34 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
     } //end of drawStar method
 
 
+    //method to draw a moving obstacle
     public int drawObstacle (Graphics g, int xObstacle, int yObstacle)
     {
-	//int dyObstacle = 1;
-
+	//changes the obstacle y coordinate in order to move
+	//numOfdy acts as a placeholder so that the moving obstacle is in the right location when the level is repainted
 	yObstacle += numOfdy;
-	
+	//draws obstacle
 	g.setColor (Color.black);
 	g.fillRect (xObstacle, yObstacle, 50, 150);
-	
-	//yObstacle += numOfdy;
+
+	//if statement that sets bounderies and changes direction if the bounderies were hit
 	if (yObstacle > 425 || yObstacle < 100)
 	{
 	    ifReversed = -ifReversed;
-	}
+	} //end of if
+
+	//if and else statements that add or subtract the correct amount to numOfdy
 	if (ifReversed == 1)
 	{
 	    numOfdy += 30;
-	}
+	} //end of if
 	else
 	{
 	    numOfdy -= 30;
-	}
+	} //end of else
 	return yObstacle;
     }
+
 
     //this method draws the birds generic body without it arms which indicate emotion
     public void drawBirdBody (Graphics g)
@@ -954,17 +991,21 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	{
 	    ifShoot = true;
 
-	}
+	}//end of else statement
     } //end of drawCannon method
 
 
+    //method that draws projectile and checks for collusion
     public boolean projectile (int[] movingObstacles, int[] xCannons, int[] yCannons, int[] xObstacles, int[] yObstacles, Graphics g)
     {
+	//variable declaration
 	int[] dxValues = {0, 1, 1, 1, 0, -1, -1, -1};
 	int[] dyValues = { - 1, -1, 0, 1, 1, 1, 0, -1};
 	int[] startxLocation = {75, 175, 175, 125, 75, 25, -25, -25};
 	int[] startyLocation = {0, -25, 75, 125, 150, 125, 75, -25};
 	boolean ifFailed = false, ifItemHit = false;
+
+	//sets the coordinates for where the projectile starts drawing
 	for (int q = 0 ; q < xCannons.length ; q++)
 	{
 	    if (x == xCannons [q])
@@ -973,18 +1014,22 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 		{
 		    x += startxLocation [frameCounter];
 		    y += startyLocation [frameCounter];
-		}
-	    }
-	}
+		}//end of inner if statement
+	    }//end of outer if statement
+       }//end of for loop
+	//while loop that aniamtes the rojectile
 	while (ifTravelled == false)
 	{
+	    //moves the coordinates of projectile and draws
 	    x += dxValues [frameCounter];
 	    y += dyValues [frameCounter];
 	    g.setColor (new Color (255, 255, 153));
 	    g.fillOval (x, y, 50, 50);
-	    delay(4);
+	    delay (4);
 	    g.setColor (new Color (152, 218, 255));
 	    g.fillOval (x, y, 50, 50);
+
+	    //check to see if a cannon was hit
 	    for (int i = 0 ; i < xCannons.length ; i++)
 	    {
 		if (x == xCannons [i] + 75)
@@ -995,9 +1040,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 			cannonSelector = i;
 			ifItemHit = true;
 			break;
-		    }
-		}
-	    }
+		    }//end of inner if statement
+		}//end of outer if statement
+	    }//end of for loop
+	    //check to see if a star was hit
 	    for (int j = 0 ; j < xOfStar.length ; j++)
 	    {
 		if (x == xOfStar [j])
@@ -1008,10 +1054,10 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 			xOfStar [j] = -50;
 			ifItemHit = true;
 			break;
-		    }
-		}
-	    }
-	    
+		    }//end of inner if statement
+		}//end of outer if statement
+	    }//end of for loop
+	    //checks to see if obstacle was hit
 	    for (int m = 0 ; m < yObstacles.length ; m++)
 	    {
 		if (x + 50 > xObstacles [m] && x + 25 < xObstacles [m] + 50)
@@ -1021,43 +1067,46 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 			ifFailed = true;
 			ifTravelled = true;
 			break;
-		    }
-		}
-	    }
+		     }//end of inner if statement
+		}//end of outer if statement
+	    }//end of for loop
+	    //breaks loop if cannon or star was hit
 	    if (ifItemHit)
 	    {
 		break;
-	    }
+	    }//end of ifItemHit if statement
+	    //if and else if sets screen boundaries, fails level if boundary is reached
 	    if (x > 1040)
 	    {
+		//nested if and else statements that check if target was reached
 		if (y >= 310 && y <= 390)
 		{
 		    menuSelector++;
 		    ifTravelled = true;
 		    break;
-		}
+		} //end of if
 		else
 		{
 		    ifFailed = true;
 		    ifTravelled = true;
 		    break;
-		}
-	    }
+		} //end of else
+	    } //end of if
 	    else if (x < 0)
 	    {
 		ifFailed = true;
 		ifTravelled = true;
 		break;
-	    }
+	    } //end of else if
 	    else if (y > 750 || y < 0)
 	    {
 		ifFailed = true;
 		ifTravelled = true;
 		break;
-	    } //yuh
-	}
+	    } //end of else if
+	}//end of while loop
 	return ifFailed;
-    }
+    }//end of projectile method
 
 
     public void valueReset (boolean fullReset)
@@ -1079,12 +1128,14 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    ifHit = 0;
 	    numOfdy = 0;
 	    starCounter = 0;
-	}
+	}//end of if fullReset statement
     } //end of valueReset method
 
 
+    //method to get different images of cannon to use as frames
     public void getImage ()
     {
+	//variable declaration
 	String[] links = {"http://i.imgur.com/h4KxyQU.png",
 	    "http://i.imgur.com/EwZOz7N.png",
 	    "http://i.imgur.com/lbpcUy2.png",
@@ -1093,18 +1144,20 @@ public class CPT_AlMalouf_Prentice extends Applet implements KeyListener, MouseL
 	    "http://i.imgur.com/4Wt9OIu.png",
 	    "http://i.imgur.com/hMOsH1Q.png",
 	    "http://i.imgur.com/zWIWL05.png"};
+
+	//for loop to fill BufferedImage array
 	for (int j = 0 ; j < img.length ; j++)
 	{
 	    try
 	    {
 		URL url = new URL (links [j]);
 		img [j] = ImageIO.read (url);
-	    }
+	    } //end of try
 	    catch (IOException e)
 	    {
-	    }
-	}
-    }
+	    } //end of catch
+	} //end of for loop
+    } //end of getImage method
 
 
     public void delay (int time)
